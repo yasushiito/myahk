@@ -1,0 +1,3 @@
+    googlesearch()
+    ;toolright()
+    Return
