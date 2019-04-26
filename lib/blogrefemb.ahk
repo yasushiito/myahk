@@ -6,62 +6,25 @@
 ;編集フォームの本文の記事を挿入する場所に入力カーソルを配置しておくこと。
 ;参考にしたページのタブを選んでいること。
 blogrefemb(){
-    editor := 0
-    work := 0
-    WinGet, windows, list
-    loop ,%windows%
-    {
-        idstr := "ahk_id " . windows%A_Index%
-        WinGetTitle,title,%idstr%
-        pos := RegExMatch(title,"- Google Chrome$")
-        if pos > 0
-        {
-            pos := RegExMatch(title,"音声入力用")
-            if pos > 0
-            {
-                WinGet,editor,ID,%idstr%
-            }
-            else
-            {
-                WinGet,work,ID,%idstr%
-            }
-        }
-    }
-    If (editor = 0) return
-    If (work = 0) return
-    Sleep 500
+    global editor := 0
+    global work := 0
+    ; 作業ウィンドウ探す。
+    detectchrome()
+    If editor = 0 return
+    If work = 0 return
+    ; 作業ウィンドウに切り替えて埋め込みたいページを全面にする。
+    Sleep 300
     WinActivate,ahk_id %work%
+    Sleep 300
     ; URL バーをフォーカスして URL をすべて選択してコピー 。
-    Sleep 500
-    Send,^l
-    Sleep 500
-    Send,^a
-    Sleep 500
-    Send,^c
-    ; 現在のページタイトルを覚えておく、これはタブ切り替えを永久に繰り返さないために使う 。
-    WinGetActiveTitle, current
-    Sleep 500
+    getbrowserurl()
     ; クリップボードの内容を URL として取り出して埋め込みリンクの文字列を生成してクリップボードに入れる 。
     url := clipboard
     clipboard = [%url%:embed:cite]
     ; ブラウザのタブを切り替えながら編集ホームを探す 。
-    Loop
-    {
-        Send,^{Tab}
-        Sleep 500
-        ; 編集フォームのページタイトル名は必ずこれであるはず 。
-        IfWinExist,ブログ記事編集 - はてなブログ
-        {
-            Send,^v
-            break
-        }
-        ;編集訪問が見つからない時はタブ切り替えが一周して戻って来るので判定して永久ループを開始する 。
-        WinGetActiveTitle, active
-        if current = %active%
-        {
-            break
-        }
-    }
+    if selecttab(work,"ブログ記事編集 - はてなブログ")
+        ; 編集ホームに切り替わったらリンクを貼り付ける。
+        Send,^v
     return
 }
 
