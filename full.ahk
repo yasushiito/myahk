@@ -22,6 +22,10 @@ config:
 #+=::
     blogrefsel()
     Return
+;作業用ウィンドウで開いているGithub 上のファイルを編集中のブログに挿入する。
+#^=::
+    blogrefgithub()
+    Return
 ;スクリーンキーボードなどを右に配置する。
 #home::
     toolright()
