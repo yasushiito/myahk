@@ -1,5 +1,5 @@
     ;音声入力エディタの URL。
-global editorurl
-getconfig()
-    mmic(editorurl)
+global editorUrl
+getConfig()
+    mmic(editorUrl)
     Return

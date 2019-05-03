@@ -48,5 +48,7 @@ CapsLock::Send, {vkF3sc029}
 pause::
     mmic(editorurl)
     Return
-
+#+PgUp::
+    scrollhover()
+    Return
     
