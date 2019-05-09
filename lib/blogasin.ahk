@@ -14,13 +14,26 @@ blogasin(){
     getbrowserurl()
     ; クリップボードの内容を URL として取り出して埋め込みリンクの文字列を生成してクリップボードに入れる 。
     url := clipboard
+    asin := ""
     ;正規表現を使って asin コードらしい部分を取り出す。
     pos := RegExMatch(url,"dp/\w*", dpasin)
+    ;見つかった場合。
+    If pos > 0
+    {
+        ; dp/を取り除いて完全な asin コードにする。
+        StringReplace, asin, dpasin, dp/
+    }
+    ;正規表現を使って asin コードらしい部分を取り出す。
+    pos := RegExMatch(url,"gp/product/\w*", gpasin)
+    ;見つかった場合。
+    If pos > 0
+    {
+        ; gp/product/を取り除いて完全な asin コードにする。
+        StringReplace, asin, gpasin, gp/product/
+    }
     ;asin コードが見つからなかったら処理を中止。
-    If pos = 0
+    If StrLen(asin) = 0
         return
-    ; dp/を取り除いて完全な asin コードにする。
-    StringReplace, asin, dpasin, dp/
     ; アマゾンのタグを生成してクリップボードに転送する。
     clipboard = [asin:%asin%:detail]
     ; ブラウザのタブを切り替えながら編集ホームを探す 。
