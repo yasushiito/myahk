@@ -4,48 +4,31 @@
 ;テキストの内容はテキストランチャーによって展開される。
 ;クリップボードの内容は破壊される 。
 blogentry(hatena){
-    editor := 0
-    work := 0
-    WinGet, windows, list
-    loop ,%windows%
-    {
-        idstr := "ahk_id " . windows%A_Index%
-        WinGetTitle,title,%idstr%
-        pos := RegExMatch(title,"- Google Chrome$")
-        if pos > 0
-        {
-            pos := RegExMatch(title,"音声入力用")
-            if pos > 0
-            {
-                WinGet,editor,ID,%idstr%
-            }
-            else
-            {
-                WinGet,work,ID,%idstr%
-            }
-        }
-    }
-    If (editor = 0) return
-    If (work = 0) return
+    global editor := 0
+    global work := 0
+    ; 作業ウィンドウ探す。
+    detectchrome()
+    If editor = 0 return
+    If work = 0 return
     ; 作業ウィンドウに切り替える 。
-    Sleep 500
+    Sleep 100
     WinActivate,ahk_id %work%
-    Sleep 500
+    Sleep 100
     ; 新規タブを開いて新規エントリページを開く。
     Send,^t
-    Sleep 500
+    Sleep 100
     SendInput,http://blog.hatena.ne.jp/%hatena%/%hatena%.hatenablog.com/edit
     Send,{enter}
     ; ページが開くのをしっかり待ってからタイトルにフォーカスを移す 。
     Sleep 3000
     Send,+{Tab}
-    Sleep 500
+    Sleep 100
     ; テキストランチャーに切り替えてクリップボードにコピーボタンを押す 。
     Process,Exist,eltest.exe
     if ErrorLevel = 0
         return
     WinActivate,ahk_pid %ErrorLevel%
-    Sleep 500
+    Sleep 100
     Send,^d
     ; テキストの取得を待ちながら作業用ウィンドウがアクティブであることを確認 。
     Sleep 5000
@@ -56,7 +39,6 @@ blogentry(hatena){
     Sleep 500
     ; フォーカスをタイトルから本文のテキストエリアに移す 。
     Send,{Tab}
-    Sleep 500
     return
 }
 

@@ -13,9 +13,9 @@ blogrefemb(){
     If editor = 0 return
     If work = 0 return
     ; 作業ウィンドウに切り替えて埋め込みたいページを全面にする。
-    Sleep 300
+    Sleep 100
     WinActivate,ahk_id %work%
-    Sleep 300
+    Sleep 100
     ; URL バーをフォーカスして URL をすべて選択してコピー 。
     getbrowserurl()
     ; クリップボードの内容を URL として取り出して埋め込みリンクの文字列を生成してクリップボードに入れる 。

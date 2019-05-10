@@ -15,7 +15,7 @@ blogrefgithub(){
     If editor = 0 return
     If work = 0 return
     ; 作業ウィンドウに切り替えて埋め込みたいページを全面にする。
-    Sleep 300
+    Sleep 100
     WinActivate,ahk_id %work%
     Sleep 300
     ; URL バーをフォーカスして URL をすべて選択してコピー 。

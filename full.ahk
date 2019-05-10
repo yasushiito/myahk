@@ -51,4 +51,6 @@ pause::
 #+PgUp::
     scrollhover()
     Return
-    
+
+; no asign
+    ;googlesearch

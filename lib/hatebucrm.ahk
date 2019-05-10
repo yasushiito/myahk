@@ -1,34 +1,17 @@
 ﻿;Google Chrome に表示されているページをはてブする 。
 hatebucrm(){
-    editor := 0
-    work := 0
-    WinGet, windows, list
-    loop ,%windows%
-    {
-        idstr := "ahk_id " . windows%A_Index%
-        WinGetTitle,title,%idstr%
-        pos := RegExMatch(title,"- Google Chrome$")
-        if pos > 0
-        {
-            pos := RegExMatch(title,"音声入力用")
-            if pos > 0
-            {
-                WinGet,editor,ID,%idstr%
-            }
-            else
-            {
-                WinGet,work,ID,%idstr%
-            }
-        }
-    }
+    global editor := 0
+    global work := 0
+    ; 作業ウィンドウ探す。
+    detectchrome()
+    If editor = 0 return
+    If work = 0 return
+    ; 作業ウィンドウに切り替えて埋め込みたいページを全面にする。
     Process,Exist,eltest.exe
     eltest := %ErrorLevel%
     If (eltest = 0) return
-    If (editor = 0) return
-    If (work = 0) return
     WinActivate,ahk_exe eltest.exe
-
-    Sleep 500
+    Sleep 100
     Send,^d
     ;WinActivate,ahk_id %editor%
     ;Sleep 500
@@ -39,14 +22,14 @@ hatebucrm(){
     ;msg := clipboard
     WinActivate,ahk_id %work%
     ;bm := clipboard
-    Sleep 500
+    Sleep 100
     Send,^b
     Sleep 4000
     ;clipboard = %msg%
     Send,^v
-    Sleep 500
+    Sleep 100
     Send,{tab}
-    Sleep 500
+    Sleep 100
     Send,{space}
     return
 }

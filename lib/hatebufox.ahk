@@ -1,41 +1,24 @@
 ﻿;Firefox で表示しているページをはてブする 。
 hatebufox(){
-    editor := 0
-    work := 0
-    fox := 0
-    Process,Exist,firefox.exe
-    fox := %ErrorLevel%
-    WinGet, windows, list
-    loop ,%windows%
-    {
-        idstr := "ahk_id " . windows%A_Index%
-        WinGetTitle,title,%idstr%
-        pos := RegExMatch(title,"- Google Chrome$")
-        if pos > 0
-        {
-            pos := RegExMatch(title,"音声入力用")
-            if pos > 0
-            {
-                WinGet,editor,ID,%idstr%
-            }
-            else
-            {
-                WinGet,work,ID,%idstr%
-            }
-        }
-        pos := RegExMatch(title,"- Mozilla Firefox")
-        if pos > 0
-        {
-                WinGet,fox,ID,%idstr%
-            }
-    }
+    global editor := 0
+    global work := 0
+    global fox := 0
+    ; 作業ウィンドウ探す。
+    detectchrome()
+    ; 作業ウィンドウ探す。
+    detectfirefox()
+    ;必要なウィンドウが揃っていない場合は処理を中止する。
+    If editor = 0 return
+    If work = 0 return
+    If fox = 0 return
+    ;音声入力されたテキストをクリップボードに転送する
     Process,Exist,eltest.exe
     eltest := %ErrorLevel%
-    If (eltest = 0) return
-    If (fox = 0) return
-    If (editor = 0) return
-    If (work = 0) return
-    Sleep 500
+    If eltest = 0 return
+    Sleep 100
+    WinActivate,ahk_exe eltest.exe
+    Sleep 100
+    ;テキストをカット&ペーストでクリップボードに転送するがテキスト加工できないので今は利用していない。
     ;SetTitleMatchMode,2
     ;WinActivate, Mozilla Firefox
     ;Sleep 500
@@ -46,10 +29,10 @@ hatebufox(){
     ;Send,^c
     ;Sleep 200
     ;bm := clipboard
-    WinActivate,ahk_exe eltest.exe
-
-    Sleep 500
+    ;eltestで音声入力テキストを取り込むショートカットを送信する。
     Send,^d
+    Sleep 100
+    ;かつてはツールバーの調子が悪いことがあったので Chrome で開き直してブックマークしていたが安定したのでコメントにした。
     ;WinActivate,ahk_id %editor%
     ;Sleep 500
     ;Send,^a
@@ -58,23 +41,27 @@ hatebufox(){
     ;Sleep 200
     ;msg := clipboard
     ;WinActivate,ahk_id %work%
-    Sleep 500
-
+    ;Sleep 100
     ;Send,^t
     ;Sleep 300
     ;clipboard = %bm%
     ;SendInput, %bm%
     ;Sleep 300
     ;Send,{Enter}
+    ;はてブツールバーでブックマークする
     WinActivate,ahk_id %fox%
-    Sleep 500
+    Sleep 100
+    ;ショートカットキーを送信する
     Send,^+o
     ;clipboard = %msg%
-    Sleep 4000
+    ;eltestはネット経由でテキストを転送するのでクリップボードに治るまでしっかり待機する。
+    Sleep 5000
+    ;クリップボードのテキストをコメント欄に貼り付ける。
     Send,^v
-    Sleep 200
+    Sleep 100
+    ;同時に Twitter にも投稿するチェックをつける。
     Send,{tab}
-    Sleep 200
+    Sleep 100
     Send,{space}
     return 
 }

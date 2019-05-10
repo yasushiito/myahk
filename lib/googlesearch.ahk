@@ -1,39 +1,25 @@
-﻿; スクリーンキーボードなどを右に配置する。
+﻿; 作業用 Chrome で検索タブを開いて音声検索する。
 googlesearch(){
-    editor := 0
-    work := 0
-    WinGet, windows, list
-    loop ,%windows%
-    {
-        idstr := "ahk_id " . windows%A_Index%
-        WinGetTitle,title,%idstr%
-        pos := RegExMatch(title,"- Google Chrome$")
-        if pos > 0
-        {
-            pos := RegExMatch(title,"音声入力用")
-            if pos > 0
-            {
-                WinGet,editor,ID,%idstr%
-            }
-            else
-            {
-                WinGet,work,ID,%idstr%
-            }
-        }
-    }
-    If (editor = 0) return
-    If (work = 0) return
-    Sleep 300
+    global editor := 0
+    global work := 0
+    ; 作業ウィンドウ探す。
+    detectchrome()
+    If work = 0 return
+    Sleep 100
     WinActivate,ahk_id %work%
-    Sleep 300
+;    Sleep 300
+;    WinWaitActive, ahk_id %work%, ,2
+    ;新規タブを開いて検索ページをアクティブにする。
     Send,^t
     Sleep 800
     Send,{tab}
-    Sleep 300
+    Sleep 100
     ; ctrl+shift+.マイクをオンにする。
     Send,^+{vkbesc34}
+    ;マウスポインターを移動させて再検索またはヒットページのクリックに備える。
     WinGetPos, x,y,w,h,ahk_id %work%
     CoordMode, Mouse, Screen
+    ;多分この辺が使いやすい。
     x:= x+Floor(w*3/4)
     y += 200
     MouseMove, %x%, %y%, 10
