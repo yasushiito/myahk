@@ -1,12 +1,17 @@
-﻿scrollhover(){
+﻿;マウスポインターをウィンドウの左右両端に一定期間停止させるとスクロールが始まる。
+;マウスポインターがウィンドウの上半分にある時は上方向にスクロール、下半分にある時は下方向にスクロールする。
+;ウィンドウの上下両端に近づくほどスクロール速度が早くなる。
+scrollhover(){
 
     scrollCnt := 0
     scrollSpdCnt := 0
     SetTimer, scrollWait, 250
     Return
 }
+;マウスポインターが一定期間滞留したか判定するための処理。
 scrollWait:
     test := scrollTest()
+    ;監視対象のウィンドウがある場合、そのアプリケーションが終了していたらスクロール処理も停止させる。
     if test < 0
     {
         SetTimer, scrollWait,Off
