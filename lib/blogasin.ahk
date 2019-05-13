@@ -4,8 +4,9 @@ blogasin(){
     global work := 0
     ; 作業ウィンドウ探す。
     detectchrome()
-    If editor = 0 return
-    If work = 0 return
+    ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
+    warnBox(editor = 0, 201)
+    warnBox(work = 0, 202)
     ; 作業ウィンドウに切り替えて埋め込みたいページを全面にする。
     Sleep 300
     WinActivate,ahk_id %work%

@@ -1,20 +1,20 @@
 ﻿;Firefox で表示しているページをはてブする 。
 hatebufox(){
-    global editor := 0
-    global work := 0
+    ;global editor := 0
+    ;global work := 0
     global fox := 0
+    global eltest := 0
     ; 作業ウィンドウ探す。
     detectchrome()
     ; 作業ウィンドウ探す。
     detectfirefox()
-    ;必要なウィンドウが揃っていない場合は処理を中止する。
-    If editor = 0 return
-    If work = 0 return
-    If fox = 0 return
-    ;音声入力されたテキストをクリップボードに転送する
+    ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
+    warnBox(fox = 0, 203)
+    ;warnBox(work = 0, 202)
     Process,Exist,eltest.exe
     eltest := %ErrorLevel%
-    If eltest = 0 return
+    warnBox(eltest = 0, 204)
+    ;音声入力されたテキストをクリップボードに転送する
     Sleep 100
     WinActivate,ahk_exe eltest.exe
     Sleep 100

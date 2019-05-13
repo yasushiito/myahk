@@ -4,7 +4,8 @@ googlesearch(){
     global work := 0
     ; 作業ウィンドウ探す。
     detectchrome()
-    If work = 0 return
+    ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
+    warnBox(work = 0, 202)
     Sleep 100
     WinActivate,ahk_id %work%
 ;    Sleep 300

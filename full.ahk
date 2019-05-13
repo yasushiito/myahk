@@ -1,4 +1,8 @@
-﻿    ;はてなブログの ID。
+﻿;警告メッセージの準備。
+warnMessage := Object()
+setWarn()
+;設定の読み込み。
+    ;はてなブログの ID。
 global hatenaid
     ;音声入力エディタの URL。
 global editorurl
