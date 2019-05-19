@@ -9,6 +9,9 @@
 ;同一 Chrome のタブでGitHubのファイルを表示しでいること。
 ;ソースコードは次のサービスを利用して成形されて表示される。
 ;http://gist-it.appspot.com/
+;
+;作成と修正の経緯。
+;http://yasushiito.hatenablog.com/entry/2019/05/19/155429
 blogrefgithub(){
     global editor := 0
     global work := 0
