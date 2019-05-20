@@ -2,5 +2,5 @@
 warnMessage := Object()
 setWarn()
 ;設定の読み込み。
-    toolleft()
+    adjust()
     Return

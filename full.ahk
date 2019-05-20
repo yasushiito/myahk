@@ -30,13 +30,13 @@ config:
 #^=::
     blogrefgithub()
     Return
-;スクリーンキーボードなどを右に配置する。
+;Chrome の新規タブで音声検索する。
 #home::
-    toolright()
+    googlesearch()
     Return
-;スクリーンキーボードなどを左に配置する。
+;常用アプリケーションのウィンドウサイズと位置の調整。
 #+home::
-    toolleft()
+    adjust()
     Return
 ; Google Chrome に表示されているページをはてブする 。
 #2::
@@ -46,15 +46,16 @@ config:
 #+2::
     hatebufox()
     Return
-
+;IME を切り替える。
 CapsLock::Send, {vkF3sc029}
-!CapsLock::Send, {vkfsc03a}
+;音声入力ウィンドウのマイクをオンにする。
 pause::
     mmic(editorurl)
     Return
+;マウスポインターをウィンドウの両端で一定期間停止させるとスクロールさせる。
 #+PgUp::
     scrollhover()
     Return
-
+;Chrome の新規タブで音声検索を開始する。
 ; no asign
     ;googlesearch
