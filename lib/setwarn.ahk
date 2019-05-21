@@ -6,5 +6,6 @@
     warnMessage[204] := "eltestが起動していません。"
     warnMessage[301] := "GitHub.com が見つかりません。"
     warnMessage[302] := "はてなブログ編集ページが見つかりません。"
+    warnMessage[303] := "Amazon.co.jp が見つかりません。"
     warnMessage[901] := ""
 }

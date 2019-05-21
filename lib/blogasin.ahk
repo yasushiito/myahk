@@ -1,4 +1,15 @@
-﻿;。
+﻿;作業用ウィンドウで開いているAmazon の商品紹介を編集中のブログに挿入する。
+;ブログ編集を支援するための機能。
+;タブの中からAmazonのページを探索するものの、ドメイン名の一致だけで判断しているので完全ではない。
+;必ず紹介したい商品のページをカレントタブにしておくこと。
+;
+;実行前に次のことを確認すること 。
+;編集フォームの本文の記事を挿入する場所に入力カーソルを配置しておくこと。
+;同一 Chrome のタブでAmazon の商品ページを表示していること。
+;
+;作成と修正の経緯。
+;http://yasushiito.hatenablog.com/entry/2019/05/08/073000
+;http://yasushiito.hatenablog.com/entry/2019/05/21/094015
 blogasin(){
     global editor := 0
     global work := 0
@@ -11,6 +22,10 @@ blogasin(){
     Sleep 300
     WinActivate,ahk_id %work%
     Sleep 300
+    ; カレントタブがGitHubを選択してなければタブの中から探してみる。
+    amazon := selecttab(work,"", "https\:\/\/www\.amazon\.co\.jp\/")
+    warnBox(amazon = False, 303)
+    
     ; URL バーをフォーカスして URL をすべて選択してコピー 。
     getbrowserurl()
     ; クリップボードの内容を URL として取り出して埋め込みリンクの文字列を生成してクリップボードに入れる 。
@@ -38,20 +53,9 @@ blogasin(){
     ; アマゾンのタグを生成してクリップボードに転送する。
     clipboard = [asin:%asin%:detail]
     ; ブラウザのタブを切り替えながら編集ホームを探す 。
-    if selecttab(work,"ブログ記事編集 - はてなブログ")
-        ; 編集ホームに切り替わったらリンクを貼り付ける。
-        Send,^v
+    entry := selecttab(work,"ブログ記事編集 - はてなブログ")
+    warnBox(entry = False, 302)
+    ; 編集ホームに切り替わったらリンクを貼り付ける。
+    Send,^v
     return
 }
-
-
-
-
-
-
-
-
-
-
-
-
