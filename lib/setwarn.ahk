@@ -7,5 +7,6 @@
     warnMessage[301] := "GitHub.com が見つかりません。"
     warnMessage[302] := "はてなブログ編集ページが見つかりません。"
     warnMessage[303] := "Amazon.co.jp が見つかりません。"
+    warnMessage[401] := "このブラウザでは URL に基づいたタブ探索はできません。"
     warnMessage[901] := ""
 }

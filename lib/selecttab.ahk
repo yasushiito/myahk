@@ -12,6 +12,14 @@ selecttab(wnd, title, url=""){
     ; 現在のページタイトルを覚えておく、これはタブ切り替えを永久に繰り返さないために使う 。
     WinGetActiveTitle, current
     Sleep 100
+    urlfunc := 0
+    pos := RegExMatch(current,"- Google Chrome$")
+    if pos > 0
+        urlfunc := 1
+    pos := RegExMatch(current," - Mozilla Firefox$")
+    if pos > 0
+        urlfunc := 2
+    warnBox(urlfunc = 0, 401)
     ;SetTitleMatchMode,2
     ; ブラウザのタブを切り替えながら編集ホームを探す 。
     Loop
@@ -30,7 +38,12 @@ selecttab(wnd, title, url=""){
         if StrLen(url) > 0
         {
             ; URL を捕まえて正規表現で判別する。
-            currenturl := getbrowserurl(True)
+            if urlfunc = 1
+                currenturl := getbrowserurl(True)
+            Else if urlfunc = 2
+                currenturl := getfirefoxurl()
+            Else
+                currenturl := ""
             pos := RegExMatch(currenturl, url)
             if pos > 0
                 um := True
