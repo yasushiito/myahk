@@ -2,10 +2,13 @@
 warnMessage := Object()
 setWarn()
 ;設定の読み込み。
-    ;はてなブログの ID。
-global hatenaid
-    ;音声入力エディタの URL。
-global editorurl
+;はてなブログの ID。
+hatenaid := ""
+;音声入力エディタの URL。
+editorurl := ""
+;Facebook でメッセンジャーする相手の ID。
+messengerfriendid := ""
+
 getconfig()
 Menu, tray, click, 1
 Menu, tray, add, config, config
