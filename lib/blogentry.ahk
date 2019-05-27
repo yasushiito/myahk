@@ -1,7 +1,8 @@
 ﻿; はてなブログの新規エントリーを用意する。
 ;新規エントリーページは作業用ウィンドウで開かれる。
 ;音声入力用ウィンドウのテキストをタイトルに利用する。
-;テキストの内容はテキストランチャーによって展開される。
+;テキストの内容はeltestによって展開される。
+;タイトルに特定のキーワードが含まれていた場合、templateエレクトリの下のテンプレートファイルを読み込んで記事本文に貼り付ける。
 ;クリップボードの内容は破壊される 。
 blogentry(hatena){
     global editor := 0
@@ -17,14 +18,12 @@ blogentry(hatena){
     Sleep 100
     ; 新規タブを開いて新規エントリページを開く。
     Send,^t
-    Sleep 100
+    ; ページが開くのをしっかり待ってから。
+    Sleep 1500
     SendInput,http://blog.hatena.ne.jp/%hatena%/%hatena%.hatenablog.com/edit
     Send,{enter}
-    ; ページが開くのをしっかり待ってからタイトルにフォーカスを移す 。
-    Sleep 3000
-    Send,+{Tab}
-    Sleep 100
-    ; テキストランチャーに切り替えてクリップボードにコピーボタンを押す 。
+    Sleep 500
+    ; eltestに切り替えてクリップボードにコピーボタンを押す 。
     Process,Exist,eltest.exe
     if ErrorLevel = 0
         return
@@ -35,22 +34,27 @@ blogentry(hatena){
     Sleep 5000
     WinActivate,ahk_id %work%
     Sleep 500
-    ; コピーしたテキストをタイトルとして貼り付け 。
+    ; クリップボードにコピーしたタイトルに特定のキーワードが含まれているか検査する。
+    t := Clipboard
+    ;/ahkが含まれていたら Auto HOT key 向けのテンプレートを読み込んで本文に貼り付ける。
+    pos := RegExMatch(t, "\/ahk")
+    if pos > 0
+    {
+        ;タイトルのキーワードahkを見出しかっこに置き換える。
+        t := RegExReplace(t, "\/ahk", "【AutoHotkey】")
+        FileRead, Clipboard,%A_ScriptDir%\template\blogahk.txt
+        If ErrorLevel <> 0
+            Clipboard = テンプレートファイルが開けませんでした。
+        Sleep 100
+        Send,^v
+        Sleep 100
+    }
+    ; タイトルにフォーカスを移す 。
+    Send,+{Tab}
+    Clipboard := t
     Send,^v
-    Sleep 500
+    Sleep 100
     ; フォーカスをタイトルから本文のテキストエリアに移す 。
     Send,{Tab}
     return
 }
-
-
-
-
-
-
-
-
-
-
-
-

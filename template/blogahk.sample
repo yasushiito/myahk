@@ -1,0 +1,13 @@
+﻿AutoHotkeyのブログ記事を用意するためのテンプレート。
+コピーしたファイルの拡張子を.txtに変更して内容を好きなように書いてね。
+
+はてなフォトからアイキャッチを参照。
+[f:id:xxxxxxxxxxx:20190101010000p:plain]
+
+記事のフッターを読み込み。
+<script type="text/javascript">
+window.onload = function(){
+$("#insert-div-ahk-intro").load("http://xxxxxxx #ahk-template");
+};
+</script>
+<div id="insert-div-ahk-intro"></div>
