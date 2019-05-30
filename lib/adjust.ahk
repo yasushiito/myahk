@@ -32,12 +32,4 @@ adjust(){
         WinMove,ahk_exe code.exe, ,590,30,1100,1080
     }
     return
-
-
-
-
-
-
-
-
 }

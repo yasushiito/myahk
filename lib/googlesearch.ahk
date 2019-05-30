@@ -26,8 +26,4 @@ googlesearch(){
     MouseMove, %x%, %y%, 10
 
     return
-
-
-
-
 }

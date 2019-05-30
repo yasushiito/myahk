@@ -15,15 +15,3 @@
     }
     return Clipboard
 }
-
-
-
-
-
-
-
-
-
-
-
-

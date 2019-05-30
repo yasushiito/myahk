@@ -5,15 +5,3 @@
     Sleep 100
     return Clipboard
 }
-
-
-
-
-
-
-
-
-
-
-
-

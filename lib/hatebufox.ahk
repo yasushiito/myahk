@@ -37,11 +37,3 @@ hatebufox(){
     Send,{space}
     return 
 }
-
-
-
-
-
-
-
-

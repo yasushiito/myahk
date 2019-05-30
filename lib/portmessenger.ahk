@@ -31,13 +31,3 @@ portmessenger(){
     Sleep 100
     return 
 }
-
-
-
-
-
-
-
-
-
-

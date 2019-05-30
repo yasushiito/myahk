@@ -22,12 +22,4 @@ detectchrome(){
         }
     }
     return
-
-
-
-
-
-
-
-
 }

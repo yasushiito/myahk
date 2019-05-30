@@ -12,15 +12,3 @@ replaceClipboard(){
     msg := clipboard
     return msg
 }
-
-
-
-
-
-
-
-
-
-
-
-

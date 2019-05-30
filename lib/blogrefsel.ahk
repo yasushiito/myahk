@@ -31,15 +31,3 @@ blogrefsel(){
     }
     return
 }
-
-
-
-
-
-
-
-
-
-
-
-
