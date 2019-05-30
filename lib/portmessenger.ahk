@@ -21,17 +21,11 @@ portmessenger(){
     url := "https\:\/\/www\.facebook\.com\/messages\/t\/"
     url .= messengerfriendid
     selecttab(fox, "", url)
-    ;音声入力されたテキストをクリップボードに転送する
-    Sleep 100
-    WinActivate,ahk_exe eltest.exe
-    Sleep 100
-    ;eltestで音声入力テキストを取り込むショートカットを送信する。
-    Send,^d
-    Sleep 100
+    ;音声入力ウィンドウのテキストを加工しながらクリップボードに放り込む。
+    importEditorText(False)
     ;Firefox に切り替えて貼り付けの待機。
     WinActivate,ahk_id %fox%
-    ;eltestはネット経由でテキストを転送するのでクリップボードに治るまでしっかり待機する。
-    Sleep 5000
+    Sleep 1000
     ;クリップボードのテキストをコメント欄に貼り付ける。
     Send,^v
     Sleep 100

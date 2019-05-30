@@ -10,30 +10,24 @@ blogentry(hatena){
     ; 作業ウィンドウ探す。
     detectchrome()
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(editor = 0, 201)
     warnBox(work = 0, 202)
     ; 作業ウィンドウに切り替える 。
     Sleep 100
     WinActivate,ahk_id %work%
     Sleep 100
-    ; 新規タブを開いて新規エントリページを開く。
+    ; 新規タブを開いて。
     Send,^t
     ; ページが開くのをしっかり待ってから。
     Sleep 1500
+    ; 新規エントリページを開く。
     SendInput,http://blog.hatena.ne.jp/%hatena%/%hatena%.hatenablog.com/edit
     Send,{enter}
-    Sleep 500
-    ; eltestに切り替えてクリップボードにコピーボタンを押す 。
-    Process,Exist,eltest.exe
-    if ErrorLevel = 0
-        return
-    WinActivate,ahk_pid %ErrorLevel%
-    Sleep 100
-    Send,^d
-    ; テキストの取得を待ちながら作業用ウィンドウがアクティブであることを確認 。
-    Sleep 5000
+    Sleep 3000
+    ;音声入力ウィンドウのテキストを加工しながらクリップボードに放り込む。
+    importEditorText(False)
+    ;作業ウィンドウのエントリページに切り替えて。
     WinActivate,ahk_id %work%
-    Sleep 500
+    Sleep 100
     ; クリップボードにコピーしたタイトルに特定のキーワードが含まれているか検査する。
     t := Clipboard
     ;/ahkが含まれていたら Auto HOT key 向けのテンプレートを読み込んで本文に貼り付ける。
@@ -46,11 +40,13 @@ blogentry(hatena){
         If ErrorLevel <> 0
             Clipboard = テンプレートファイルが開けませんでした。
         Sleep 100
+        ;テンプレートを本文に貼り付け。
         Send,^v
         Sleep 100
     }
     ; タイトルにフォーカスを移す 。
     Send,+{Tab}
+    ;変換されたタイトルを貼り付け。
     Clipboard := t
     Send,^v
     Sleep 100
