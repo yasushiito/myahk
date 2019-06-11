@@ -12,7 +12,7 @@ adjust(){
     global eltest := 0
     global editorurl
     ; 作業ウィンドウ探す。
-    detectchrome()
+    detecteditor(editorurl)
     ; 作業ウィンドウ探す。
     detectfirefox()
 

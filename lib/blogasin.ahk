@@ -22,8 +22,8 @@ blogasin(){
     Sleep 300
     WinActivate,ahk_id %work%
     Sleep 300
-    ; カレントタブがGitHubを選択してなければタブの中から探してみる。
-    amazon := selecttab(work,"", "https\:\/\/www\.amazon\.co\.jp\/")
+    ; カレントタブがamazonを選択してなければタブの中から探してみる。
+    amazon := selecttab(work,"", "https://www.amazon.co.jp/")
     warnBox(amazon = False, 303)
     
     ; URL バーをフォーカスして URL をすべて選択してコピー 。

@@ -18,7 +18,7 @@ portmessenger(){
     ;Firefox をアクティブにしてタブを切り替えながらメッセンジャーページを探す。
     WinActivate,ahk_id %fox%
     Sleep 100
-    url := "https\:\/\/www\.facebook\.com\/messages\/t\/"
+    url := "https://www.facebook.com/messages/t/"
     url .= messengerfriendid
     selecttab(fox, "", url)
     ;音声入力ウィンドウのテキストを加工しながらクリップボードに放り込む。

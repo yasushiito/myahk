@@ -25,7 +25,7 @@ blogrefgithub(){
     WinActivate,ahk_id %work%
     Sleep 300
     ; カレントタブがGitHubを選択してなければタブの中から探してみる。
-    github := selecttab(work,"", "https\:\/\/github\.com\/")
+    github := selecttab(work,"", "https://github.com/")
     warnBox(github = False, 301)
     
     ; URL バーをフォーカスして URL をすべて選択してコピー 。
