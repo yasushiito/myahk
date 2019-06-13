@@ -6,6 +6,8 @@ setWarn()
 hatenaid := ""
 ;音声入力エディタの URL。
 editorurl := ""
+;作業用ウインドウの URL。
+workurl := ""
 ;Facebook でメッセンジャーする相手の ID。
 messengerfriendid := ""
 

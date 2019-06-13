@@ -1,7 +1,13 @@
 ﻿setconfig(){
+    global editorurl
+    global workurl
+    global hatenaid
+    global messengerfriendid
 ;入力ダイアログを作成する。
     Gui, add, text, ,音声入力エディタの URL
     Gui, add, edit, veditorurl w200, %editorurl%
+    Gui, add, text, ,作業用ウインドウの URL
+    Gui, add, edit, vworkurl w200, %workurl%
     Gui, add, text, ,はてなブログの ID
     Gui, add, edit, vhatenaid w200, %hatenaid%
     Gui, add, text, ,メッセンジャーでチャットしたい相手の ID
@@ -19,6 +25,8 @@ submit:
 ;入力された値を保存する。
     ;音声入力エディタの URL。
     IniWrite, %editorurl%, %A_ScriptDir%\conf.ini, user, editorurl
+    ;作業用ウインドウの URL。
+    IniWrite, %workurl%, %A_ScriptDir%\conf.ini, user, workurl
     ;はてなブログの ID。
     IniWrite, %hatenaid%, %A_ScriptDir%\conf.ini, user, hatenaid
     IniWrite, %messengerfriendid%, %A_ScriptDir%\conf.ini, user, messengerfriendid
