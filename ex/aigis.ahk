@@ -4,6 +4,7 @@
 ;ドラッグアンドドロップ操作中にはマウスポインターをユニット一覧の上から外した後にマウスポインターを停滞させた場所でドロップします。
 ;
 ;Win+ M で アシストモードを開始。
+;Win+U 執務室でのアシスト(ユニット出撃ドラッグのアシストは無し。
 ;Win+P でアシストモードを終了。
 ;画面上のマウスポインターの絶対位置で動作します。
 ;ウィンドウの位置とサイズが変わると期待通りに動作しません。
@@ -15,16 +16,32 @@
     global cy := 0  ;マイナスの時は判定エリア外に出ていたとのこと。
     global stay := 0
     global dnd := False
+    global u := False
     Menu, tray, click, 1
     detectchrome()
+    ;マウス座標の指定と画像を探す処理の座標はスクリーン上の絶対座標で指定する。
+    CoordMode,Pixel,Screen
     CoordMode,Mouse,Screen
     Return
 ;Win+ M で アシストモードを開始。
 #m::
+    SetTimer, aigis, off
     stay := 0
     cx := -1
     dnd := False
+    ua := True
     SetTimer, aigis, 40
+    Return
+;Win+u執務室でのアシストを開始。
+;クリックはゆっくりめで監視する。
+;ユニット出撃のためのドラッグ監視はしない。
+#u::
+    SetTimer, aigis, off
+    stay := 0
+    cx := -1
+    dnd := False
+    ua := False
+    SetTimer, aigis, 100
     Return
 ;Win+P でアシストモードを終了。
 #p::
@@ -74,6 +91,15 @@ aigis:
     if stay > 5
     {
 ;ユニット一覧のエリア判定はスキルボタンがある右端とユニットスクロールが発生する左端のエリアは判定に含まれない。
+        if !ua
+        {
+;連打しないように判定はイコールを使って一度だけ。
+            if stay=6
+            {
+                MouseClick, Left
+            }
+            return
+        }
         if hitTest(920,495,1445,555,mx,my)
         {
 ;停滞させているのはユニット一覧の中。
@@ -94,10 +120,24 @@ aigis:
                 MouseClick, Left
             }
 ;通常のフィールドなのでスキル使用のためのクリック。
-;連打しないように判定はイコールを使って一度だけ。
-            if stay=6
+;ステータス表示のためのクリック。
+;割り込み6回に1度に対してクリックするべきか判定する。
+            if Mod(stay, 6) =0
             {
-                MouseClick, Left
+;移動中から停止した時は必ずクリックしないとフィールドをクリックしてステータス表示をキャンセルできない。
+                if stay = 6
+                {
+                    MouseClick, Left
+                }
+                Else
+                {
+;ステータスとスキルボタンを消さないようにステータス表示中はクリックしない。
+                    ImageSearch, fx, fy, 900,480,945,520,*40 blue.bmp
+                    if ErrorLevel = 1
+                    {
+                        MouseClick, Left
+                    }
+                }
             }
         }
     }
