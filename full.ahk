@@ -14,6 +14,10 @@ messengerfriendid := ""
 getconfig()
 Menu, tray, click, 1
 Menu, tray, add, config, config
+;ウィンドウの端っこにマウスポインタを停止させるとスクロールできるのを頻繁に使うので常に有効にするよう昇格させた。
+scrollhover()
+;ウィンドウの位置とサイズを調整して音声入力と作業ウインドウを用意する。
+adjust()
 Return
 config:
     setconfig()
