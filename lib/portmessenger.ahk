@@ -27,21 +27,24 @@ portmessenger(){
     WinActivate,ahk_id %fox%
     Sleep 1000
     ;入力ボックスからフォーカスが外れることが時々あるのでクリックする。
-    fbminput := A_ScriptDir . "\images\fbminput.bmp"
+    ;作業ディレクトリからの相対パスで探すので作業ディレクトリをバックアップして書き換える。
+    wd := A_WorkingDir
+    SetWorkingDir, %A_ScriptDir%
+    fbminput := "images\fbminput.bmp"
     ;入力ボックスの画像が所定のディレクトリに用意されている場合に限る。
     if FileExist(fbminput)
     {
-        fbminput := "*10 " . fbminput
         CoordMode,Pixel,Relative
         WinGetPos, , , Width, Height, A
         ;入力してくださいメッセージを探す。
-        ImageSearch, x, y, 0, 0, Width, Height,% fbminput
+        ImageSearch, x, y, 0, 0, Width, Height,*30 %fbminput%
         if ErrorLevel = 0
         {
             MouseMove, x, y, 2
             MouseClick, Left
         }
     }
+    SetWorkingDir, wd
     ;クリップボードのテキストをコメント欄に貼り付ける。
     Send,^v
     Sleep 100
