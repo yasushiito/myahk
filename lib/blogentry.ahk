@@ -20,7 +20,8 @@ blogentry(hatena){
     ; ページが開くのをしっかり待ってから。
     Sleep 1500
     ; 新規エントリページを開く。
-    SendInput,http://blog.hatena.ne.jp/%hatena%/%hatena%.hatenablog.com/edit
+    Clipboard := "http://blog.hatena.ne.jp/" . hatena . "/" . hatena . ".hatenablog.com/edit"
+    Send, ^v
     Send,{enter}
     Sleep 3000
     ;音声入力ウィンドウのテキストを加工しながらクリップボードに放り込む。

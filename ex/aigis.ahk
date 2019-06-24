@@ -42,7 +42,7 @@
     cx := -1
     dnd := False
     ua := False
-    SetTimer, aigis, 100
+    SetTimer, aigis, 200
     Return
 ;Win+P でアシストモードを終了。
 #p::
@@ -95,9 +95,11 @@ aigis:
         if !ua
         {
 ;連打しないように判定はイコールを使って一度だけ。
-            if stay = 6
+            if stay = 4
             {
-                MouseClick, Left
+            Send, {LButton down}
+            Sleep, 100
+            Send, {LButton up}
             }
             return
         }

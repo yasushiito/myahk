@@ -24,8 +24,7 @@ blogrefsel(){
         Sleep 100
         t := clipboard
         ; URL と選択文字列から埋め込みタグ生成する。
-        u := "[" . url . ":title=" . t . "]"
-        clipboard = %u%
+        clipboard := "[" . url . ":title=" . t . "]"
         Sleep 100
         Send,^v
     }

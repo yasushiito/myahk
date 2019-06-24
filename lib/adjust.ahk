@@ -50,7 +50,7 @@ adjust(){
         ;音声入力ウィンドウの URL が config で設定できる。
         ;新しいウィンドウで起動すること。
         Run , %browser% --new-window %editorurl%
-        Sleep, 3000
+        Sleep, 5000
         ; ウィンドウ探す。
         detecteditor(editorurl)
     }

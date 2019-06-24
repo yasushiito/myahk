@@ -29,7 +29,7 @@ blogrefgithub(){
     warnBox(github = False, 301)
     
     ; URL バーをフォーカスして URL をすべて選択してコピー 。
-    getbrowserurl(True)
+    getbrowserurl()
     ; クリップボードの内容を URL として取り出して埋め込みリンクの文字列を生成してクリップボードに入れる 。
     url := clipboard
     clipboard = <script src="http://gist-it.appspot.com/%url%"></script>

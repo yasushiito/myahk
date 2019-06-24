@@ -22,7 +22,7 @@ selecttab(wnd, title, url=""){
     warnBox(urlfunc = 0, 401)
     ;SetTitleMatchMode,2
     ; ブラウザのタブを切り替えながら編集ホームを探す 。
-    Loop
+    Loop, 30
     {
         ; ページタイトルを使ってタブ探索する。
         tm := False
@@ -39,7 +39,7 @@ selecttab(wnd, title, url=""){
         {
             ; URL を捕まえて正規表現で判別する。
             if urlfunc = 1
-                currenturl := getbrowserurl(True)
+                currenturl := getbrowserurl()
             Else if urlfunc = 2
                 currenturl := getfirefoxurl()
             Else
