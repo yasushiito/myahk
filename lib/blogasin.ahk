@@ -53,7 +53,7 @@ blogasin(){
     ; アマゾンのタグを生成してクリップボードに転送する。
     clipboard = [asin:%asin%:detail]
     ; ブラウザのタブを切り替えながら編集ホームを探す 。
-    entry := selecttab(work,"ブログ記事編集 - はてなブログ")
+    entry := selecttabblogentry(work)
     warnBox(entry = False, 302)
     ; 編集ホームに切り替わったらリンクを貼り付ける。
     Send,^v

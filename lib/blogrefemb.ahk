@@ -23,7 +23,7 @@ blogrefemb(){
     url := clipboard
     clipboard = [%url%:embed:cite]
     ; ブラウザのタブを切り替えながら編集ホームを探す 。
-    if selecttab(work,"ブログ記事編集 - はてなブログ")
+    if selecttabblogentry(work)
         ; 編集ホームに切り替わったらリンクを貼り付ける。
         Send,^v
     return
