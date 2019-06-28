@@ -57,6 +57,8 @@ pregithub(url){
             selectedtext := RegExReplace(selectedtext, "\n$" , "")
             ;参照元への誘導のタイトルに使うページタイトルを取得する。
             WinGetActiveTitle, title
+            ;ウィンドウタイトルに含まれるブラウザ名称を取り除く。
+            title := RegExReplace(title,"- Google Chrome$", "")
             ;スーパー pre 記法による引用のタグを生成する。
             res := ">|" . lang . "|`n" . selectedtext . "`n||<`n"
             ;参照元への リンクのタグを生成する。
