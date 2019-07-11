@@ -29,6 +29,8 @@
     SetTimer, aigis, off
     stay := 0
     cx := -1
+    ;前回クリックした座標を覚えておいて同じ場所でのクリック連打を防止する。
+    bcx := -100
     dnd := False
     ua := True
     SetTimer, aigis, 40
@@ -40,9 +42,10 @@
     SetTimer, aigis, off
     stay := 0
     cx := -1
+    bcx := -100
     dnd := False
     ua := False
-    SetTimer, aigis, 200
+    SetTimer, aigis, 150
     Return
 ;Win+P でアシストモードを終了。
 #p::
@@ -67,7 +70,7 @@ aigis:
         }
 ;マウスポインタが停滞しているか。
 ;小刻みに震えていても停滞していることにするために少し余裕を持たせてある。
-        d:=2
+        d:=3
         if hitTest(cx-d,cy-d,cx+d,cy+d,mx,my) 
         {
 ;停滞しているのでカウンターを増やし。
@@ -103,7 +106,7 @@ aigis:
             }
             return
         }
-        if hitTest(920,495,1445,555,mx,my)
+        if hitTest(920,499,1435,555,mx,my)
         {
 ;停滞させているのはユニット一覧の中。
 ;ドラッグアンドドロップ状態にして左ボタンをしっぱなしにする。
@@ -118,27 +121,43 @@ aigis:
 ;ドラッグアンドドロップ中なら。
 ;ドラッグアンドドロップ状態を解除して左ボタンを上げる。
                 dnd := False
-                Send, {LButton Up}
 ;明示的にクリックしてやらないと掴んだユニットを離さないことがあるらしい。
                 MouseClick, Left
+                Send, {LButton Up}
+                return
             }
 ;通常のフィールドなのでスキル使用のためのクリック。
 ;ステータス表示のためのクリック。
 ;割り込み6回に1度に対してクリックするべきか判定する。
+;移動中から停止した時は必ずクリックしないとフィールドをクリックしてステータス表示をキャンセルできない。
             if Mod(stay, 5) =0
             {
-;移動中から停止した時は必ずクリックしないとフィールドをクリックしてステータス表示をキャンセルできない。
-                if stay = 5
+;ステータスとスキルボタンを消さないようにステータス表示中はクリックしない。
+                ImageSearch, fx, fy, 900,480,945,520,*40 blue.bmp
+                if ErrorLevel = 1
                 {
                     MouseClick, Left
+                    ;クリックしたので座標記録しておく。
+                    bcx := mx
+                    bcy := my
                 }
                 Else
                 {
-;ステータスとスキルボタンを消さないようにステータス表示中はクリックしない。
-                    ImageSearch, fx, fy, 900,480,945,520,*40 blue.bmp
-                    if ErrorLevel = 1
+                    ;以前にクリックされているなら。
+                    if bcx >= 0
                     {
-                        MouseClick, Left
+                        ;前回クリック位置からある程度離れてなければ クリックしない。
+                        if Abs(mx - bcx) > 7 and Abs(my - bcy) > 7
+                        {
+                            ;マウスポインターが大きく移動したので連打の心配はないのでクリック。
+                            bcx := -100
+                            MouseClick, Left
+                            ;クリックした座標を記憶しておく。
+                            bcx := mx
+                            bcy := my
+                           
+                        }
+
                     }
                 }
             }
