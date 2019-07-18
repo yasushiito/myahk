@@ -21,11 +21,20 @@ blogrefemb(){
     Sleep 100
     ; URL をクリップボードコピー 。
     url := getbrowserurl()
-    ;GitHubページからソースコードを引用するならタグを受け取る。
-    txt := pregithub(url)
-    ;引用文字列が帰ってきたならクリップボードに転送する。
-    if strlen(txt) > 0
-        clipboard := txt
+    ;形而上で選択されているテキストの取得を試みる。
+    selectedtext := getselectedtext()
+    ;テキストの選択が発見されたらドメインごとに適切な引用を行う。
+    If strlen(selectedtext) > 0
+    {
+        ;選択範囲が改行で終わっている場合、改行がダブらないように一度削除してしまう。
+        selectedtext := RegExReplace(selectedtext, "\n$" , "")
+        ;参照元への誘導のタイトルに使うページタイトルを取得する。
+        WinGetActiveTitle, title
+        ;ウィンドウタイトルに含まれるブラウザ名称を取り除く。
+        title := RegExReplace(title,"- Google Chrome$", "")
+        ;ドメインごとに適切な引用を行う。
+        txt := clipblockquotefordomain(url, title, selectedtext)
+    }
     Else
         ;特殊な引用ではなかったのでdefaultの機能である埋め込みリンクをクリップボードに転送。
         ; URL 取り出して埋め込みリンクの文字列を生成してクリップボードに入れる 。
@@ -36,37 +45,49 @@ blogrefemb(){
         Send,^v
     return
 }
-;GitHubページの差し込みならソースコードを引用する形のタグを返す。
-;無関係の URL なら空文字列を返す。
-pregithub(url){
-    res :=
+;クリップボードを使って選択されているテキストを返す。
+getselectedtext(){
     ;あらかじめクリップボードを空にしておいて Ctrl + C で何らかのテキストがクリップボードにコピーされたならソースコードの一部を選択していたと判定する。
     clipboard :=
     Send, ^c
-    selectedtext := clipboard
+    res := clipboard
+    return res
+}
+;ドメインごとに適切な引用スタイルでタグを生成してクリップボードにセットする。
+clipblockquotefordomain(url, title, selectedtext){
+    ;GitHubページからソースコードを引用するならタグを受け取る。
+    txt := blockquotegithub(url, title, selectedtext)
+    ;引用文字列が帰ってきたならクリップボードに転送して呼び出し元に復帰する。
+    if strlen(txt) > 0
+    {
+        clipboard := txt
+        return
+    }
+    ;対応すべきドメインが見つからないので汎用の引用スタイルでタグを返す。
+    txt :=
+    ;引用のタグを生成する。
+    ;txt := ">>`n" . selectedtext . "`n<<`n"
+    txt := "><blockquote cite=""" . url . """><p>" . selectedtext . "</p><cite><a href=""" . url . """>" . title . "</a></cite></blockquote><`n"
+    ;クリップボードに転送して呼び出し元に復帰する。
+    clipboard := txt
+    return
+}
+;GitHubページのソースコードを引用する形のタグを返す。
+;無関係の URL なら空文字列を返す。
+blockquotegithub(url, title, selectedtext){
+    res :=
     ; URL がGitHubドメインであればソースコードの引用の可能性あり。
     x := RegExMatch(url, "^https\:\/\/github\.com\/")
     if x > 0
     {
-        ;ソースコードの切り抜きたい部分を選択しているか。
-        If strlen(selectedtext) > 0
-        {
-            ;シンタックスハイライトのための言語名を URL から推測する。
-            lang := urltolang(url)
-            ;選択範囲が改行で終わっている場合、改行がダブらないように一度削除してしまう。
-            selectedtext := RegExReplace(selectedtext, "\n$" , "")
-            ;参照元への誘導のタイトルに使うページタイトルを取得する。
-            WinGetActiveTitle, title
-            ;ウィンドウタイトルに含まれるブラウザ名称を取り除く。
-            title := RegExReplace(title,"- Google Chrome$", "")
-            ;スーパー pre 記法による引用のタグを生成する。
-            res := ">|" . lang . "|`n" . selectedtext . "`n||<`n"
-            ;参照元への リンクのタグを生成する。
-            res := res . "<cite><a href=""" . url . """>" . title . "</a></cite>`n"
-;            res := "><blockquote cite=""" . url . """>" . res . "<cite><a href=""" . url . """>" . title . "</a></cite></blockquote><"
-
-        }
+        ;シンタックスハイライトのための言語名を URL から推測する。
+        lang := urltolang(url)
+        ;スーパー pre 記法による引用のタグを生成する。
+        res := ">|" . lang . "|`n" . selectedtext . "`n||<`n"
+        ;参照元への リンクのタグを生成する。
+        res := res . "<cite><a href=""" . url . """>" . title . "</a></cite>`n"
     }
+    ;無関係の URL なら空文字列を返す。
     return res 
 }
 ;シンタックスハイライトのための言語名を URL から推測する。
