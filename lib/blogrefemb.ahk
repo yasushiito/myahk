@@ -63,6 +63,14 @@ clipblockquotefordomain(url, title, selectedtext){
         clipboard := txt
         return
     }
+    ;YouTube のサムネイルならタグを受け取る。
+    txt := blockquoteyoutube(url, title, selectedtext)
+    ;引用文字列が帰ってきたならクリップボードに転送して呼び出し元に復帰する。
+    if strlen(txt) > 0
+    {
+        clipboard := txt
+        return
+    }
     ;対応すべきドメインが見つからないので汎用の引用スタイルでタグを返す。
     txt :=
     ;引用のタグを生成する。
@@ -86,6 +94,29 @@ blockquotegithub(url, title, selectedtext){
         res := ">|" . lang . "|`n" . selectedtext . "`n||<`n"
         ;参照元への リンクのタグを生成する。
         res := res . "<cite><a href=""" . url . """>" . title . "</a></cite>`n"
+    }
+    ;無関係の URL なら空文字列を返す。
+    return res 
+}
+;YouTube のサムネイルを引用する形のタグを返す。
+;無関係の URL なら空文字列を返す。
+blockquoteyoutube(url, title, selectedtext){
+    res :=
+    ; URL がYouTubeドメインであればサムネイルの可能性あり。
+    x := RegExMatch(url, "^https\:\/\/www\.youtube\.com\/watch")
+    if x > 0
+    {
+        ;正規表現を使って idらしい部分を取り出す。
+        pos := RegExMatch(url,"v\=\w*", vid)
+        ;見つかった場合。
+        If pos > 0
+        {
+            ; 無駄な文字を取り除いてサムネイルへの URL にする。
+            StringReplace, videoid, vid, v=
+            vurl := "https://img.youtube.com/vi/" . videoid . "/default.jpg"
+            ;画像と引用テキストをタグにする。
+            res := "[" . url . ":image=" . vurl . "]`n" . selectedtext . "`n"
+        }
     }
     ;無関係の URL なら空文字列を返す。
     return res 
