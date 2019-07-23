@@ -21,24 +21,26 @@ blogrefemb(){
     Sleep 100
     ; URL をクリップボードコピー 。
     url := getbrowserurl()
-    ;形而上で選択されているテキストの取得を試みる。
+    ;参照元への誘導のタイトルに使うページタイトルを取得する。
+    WinGetActiveTitle, title
+    ;ウィンドウタイトルに含まれるブラウザ名称を取り除く。
+    title := RegExReplace(title,"- Google Chrome$", "")
+    ;選択されているテキストの取得を試みる。
     selectedtext := getselectedtext()
     ;テキストの選択が発見されたらドメインごとに適切な引用を行う。
     If strlen(selectedtext) > 0
     {
         ;選択範囲が改行で終わっている場合、改行がダブらないように一度削除してしまう。
         selectedtext := RegExReplace(selectedtext, "\n$" , "")
-        ;参照元への誘導のタイトルに使うページタイトルを取得する。
-        WinGetActiveTitle, title
-        ;ウィンドウタイトルに含まれるブラウザ名称を取り除く。
-        title := RegExReplace(title,"- Google Chrome$", "")
         ;ドメインごとに適切な引用を行う。
         txt := clipblockquotefordomain(url, title, selectedtext)
     }
     Else
-        ;特殊な引用ではなかったのでdefaultの機能である埋め込みリンクをクリップボードに転送。
-        ; URL 取り出して埋め込みリンクの文字列を生成してクリップボードに入れる 。
-        clipboard = [%url%:embed:cite]
+    {
+        ;ドメインごとに適切な引用を行う。
+        txt := clipembedfordomain(url, title)
+
+    }
     ; ブラウザのタブを切り替えながら編集ホームを探す 。
     if selecttabblogentry(work)
         ; 編集ホームに切り替わったらリンクを貼り付ける。
@@ -131,4 +133,41 @@ urltolang(url)
     if x > 0
         res := "autohotkey"
     return res
+}
+clipembedfordomain(url, title){
+    ;YouTube の動画を埋め込むならタグを受け取る。
+    txt := embedyoutube(url, title)
+    ;引用文字列が帰ってきたならクリップボードに転送して呼び出し元に復帰する。
+    if strlen(txt) > 0
+    {
+        clipboard := txt
+        return
+    }
+
+    ;特殊な引用ではなかったのでdefaultの機能である埋め込みリンクをクリップボードに転送。
+    ; URL 取り出して埋め込みリンクの文字列を生成してクリップボードに入れる 。
+    clipboard = [%url%:embed:cite]
+    return
+}
+;YouTube の動画を埋め込む形のタグを返す。
+;無関係の URL なら空文字列を返す。
+embedyoutube(url, title){
+    res :=
+    ; URL がYouTubeドメインであれば動画の可能性あり。
+    x := RegExMatch(url, "^https\:\/\/www\.youtube\.com\/watch")
+    if x > 0
+    {
+        ;正規表現を使って idらしい部分を取り出す。
+        pos := RegExMatch(url,"v\=\w*", vid)
+        ;見つかった場合。
+        If pos > 0
+        {
+            ; 無駄な文字を取り除いて動画の id にする。
+            StringReplace, videoid, vid, v=
+            ;動画を埋め込むタグにする。
+            res := "<iframe width=""560"" height=""315"" src=""https://www.youtube.com/embed/" . videoid . """ frameborder=""0"" allow=""accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"" allowfullscreen></iframe>"
+        }
+    }
+    ;無関係の URL なら空文字列を返す。
+    return res 
 }
