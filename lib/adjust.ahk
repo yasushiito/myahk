@@ -57,15 +57,38 @@ adjust(){
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
     warnBox(editor = 0, 201)
     WinMove,ahk_id %editor%, ,-120,-220,900,600
+    if fox <> 0
+    {
+        WinMove,ahk_id %fox%, ,660,40,1240,1000
+    }
     Process,Exist,eltest.exe
     eltest := %ErrorLevel%
-    If (eltest <> 0) {
+    If eltest <> 0
+    {
         WinMove,ahk_exe eltest.exe, ,175,470,420,320
     }
+    ;Visual Studio CODE の位置とサイズの調整。
     Process,Exist,code.exe
     code := %ErrorLevel%
-    If (code <> 0) {
-        WinMove,ahk_exe code.exe, ,590,30,1100,1080
+    If code <> 0
+    {
+        WinMove,ahk_exe code.exe, ,590,30,1100,1050
+    }
+    ;スクリーンキーボードの位置とサイズの調整 ただし管理者権限で実行した時のみ作用する。
+    Process,Exist,osk.exe
+    osk := %ErrorLevel%
+    if osk <> 0
+    {
+        WinMove,ahk_exe osk.exe, ,120,747,646,196
+    }
+    ;エクスプローラの位置とサイズの調整。
+    ;ただし OS が管理しているエクスプローラーのハンドルを掴んでしまうので Window クラスでウィンドウをつかんでいる。
+    ;同じクラスを使ったアプリケーションがあると失敗するかも。
+    Process,Exist,explorer.exe
+    explorer := %ErrorLevel%
+    if explorer <> 0
+    {
+        WinMove,ahk_class CabinetWClass, ,460,10,1068,710
     }
     return
 }
