@@ -41,6 +41,8 @@ adjust(){
 
     ; 音声入力ウィンドウ探す。
     detecteditor(editorurl)
+    ;余分に開いてしまった、 すでに開いていた Chrome を閉じる。
+    closeblankchrome()
     ; 作業ウィンドウ探す。
     detectfirefox()
 
@@ -74,13 +76,16 @@ adjust(){
     {
         WinMove,ahk_exe code.exe, ,590,30,1100,1050
     }
-    ;スクリーンキーボードの位置とサイズの調整 ただし管理者権限で実行した時のみ作用する。
+    ;スクリーンキーボードは必須なので見つからなかったら起動する。
     Process,Exist,osk.exe
     osk := %ErrorLevel%
-    if osk <> 0
+    if osk = 0
     {
-        WinMove,ahk_exe osk.exe, ,120,747,646,196
+        Run, osk.exe
+        Sleep 1500
     }
+    ;スクリーンキーボードの位置とサイズの調整 ただし管理者権限で実行した時のみ作用する。
+    WinMove,ahk_exe osk.exe, ,120,747,646,196
     ;エクスプローラの位置とサイズの調整。
     ;ただし OS が管理しているエクスプローラーのハンドルを掴んでしまうので Window クラスでウィンドウをつかんでいる。
     ;同じクラスを使ったアプリケーションがあると失敗するかも。
@@ -92,3 +97,7 @@ adjust(){
     }
     return
 }
+;このスクリプトを直接起動した場合はここから関数呼び出し。
+;エクスプローラーなどから直接管理者権限で実行したい時などに使う。
+If A_ScriptName = adjust.ahk
+    adjust()
