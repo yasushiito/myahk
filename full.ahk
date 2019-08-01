@@ -57,8 +57,21 @@ config:
     Return
 ;IME を切り替える。
 CapsLock::Send, {vkF3sc029}
+;アクティブウィンドウで選択中の単語 Google 検索する。
+SetScrollLockState, AlwaysOff
+ScrollLock::
+    Return
 ;音声入力ウィンドウのマイクをオンにする。
-pause::
+;長押しした時はアクティブウインドウに音声入力ウィンドウのテキストを転送する。
+Pause::
+    ;長押し判定。
+    ;スクリーンキーボードからマウスクリックで2入力しているので左ボタンを監視している。
+    KeyWait, LButton, T1
+    if ErrorLevel
+    {
+        portAny()
+        Return
+    }
     mmic(editorurl)
     Return
 ;マウスポインターをウィンドウの両端で一定期間停止させるとスクロールさせる。
