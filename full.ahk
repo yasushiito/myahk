@@ -57,9 +57,17 @@ config:
     Return
 ;IME を切り替える。
 CapsLock::Send, {vkF3sc029}
-;アクティブウィンドウで選択中の単語 Google 検索する。
-SetScrollLockState, AlwaysOff
+;長押しした時はアクティブウィンドウのカーソル周辺の単語を Chrome でネット検索する。
 ScrollLock::
+    ;長押し判定。
+    ;スクリーンキーボードからマウスクリックで2入力しているので左ボタンを監視している。
+    KeyWait, LButton, T1
+    if ErrorLevel
+    {
+        wordgooglesearch()
+        Return
+    }
+
     Return
 ;音声入力ウィンドウのマイクをオンにする。
 ;長押しした時はアクティブウインドウに音声入力ウィンドウのテキストを転送する。
