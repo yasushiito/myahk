@@ -1,4 +1,5 @@
-﻿; 
+﻿; Firefox のウィンドウを探します。
+;Firefox は1枚しか起動していない前提です。
 detectfirefox(){
     global fox := 0
     WinGet, windows, list

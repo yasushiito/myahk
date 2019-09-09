@@ -14,38 +14,22 @@ adjust(){
     global workurl
     browser := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
     ; 作業ウィンドウ探す。
-    cnt := detectwork(workurl)
+    detectwork(workurl)
+    ;作業ウィンドウが見つからなかったら Chrome ごと起動する。
     If work = 0 
     {
-        ;作業ウィンドウが見つからなかったら Chrome ごと起動する。
-        ;作業ウィンドウの URL が config で設定できる。
+        ;すでに開いていた Chrome を閉じる。
+        ;一枚でも Chrome ウィンドウが起動していると いつも使っているタブを開いて起動できない。
+        closeblankchrome()
         ;新しいウィンドウで起動すること。
-        if cnt = 0
-        {
-            Run , %browser% --new-window
-            Sleep, 10000
-        }
-        Else
-        {
-            ;本当は起動時に開く 特定のページセットを使いたいが初期起動でないと準備してくれないようなので緊急避難的に作業ウィンドウだけを開く。
-            ;いつもの初期タブを表示させたければ一度クロームを全て終了させてから起動し直す。
-            Run , %browser% --new-window %workurl%
-            Sleep, 4000
-        }
+        Run , %browser% --new-window
+        Sleep, 10000
         ; 作業ウィンドウ探す。
         detectwork(workurl)
     }
-    ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(work = 0, 202)
-    WinMove,ahk_id %work%, ,600,20,1200,1050
 
     ; 音声入力ウィンドウ探す。
     detecteditor(editorurl)
-    ;余分に開いてしまった、 すでに開いていた Chrome を閉じる。
-    closeblankchrome()
-    ; 作業ウィンドウ探す。
-    detectfirefox()
-
     If editor = 0
     {
         ;音声入力ウィンドウが見つからなかったら Chrome ごと起動する。
@@ -56,8 +40,18 @@ adjust(){
         ; ウィンドウ探す。
         detecteditor(editorurl)
     }
+    ;最終的に余分な Chrome ウィンドウは閉じる。
+    closeblankchrome("chrome://newtab/")
+    ; firefoxウィンドウ探す。
+    detectfirefox()
+
+    ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
+    warnBox(work = 0, 202)
+    ;位置とサイズを調整する。
+    WinMove,ahk_id %work%, ,600,20,1200,1050
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
     warnBox(editor = 0, 201)
+    ;位置とサイズを調整する。
     WinMove,ahk_id %editor%, ,-120,-220,900,600
     if fox <> 0
     {

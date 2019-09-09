@@ -10,13 +10,12 @@
 ;作成と修正の経緯。
 ;http://yasushiito.hatenablog.com/entry/2019/05/08/073000
 ;http://yasushiito.hatenablog.com/entry/2019/05/21/094015
-blogasin(){
-    global editor := 0
-    global work := 0
+blogasin(workurl){
+    global work
     ; 作業ウィンドウ探す。
-    detectchrome()
+    if !work or work = 0
+        detectwork(workurl)
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(editor = 0, 201)
     warnBox(work = 0, 202)
     ; 作業ウィンドウに切り替えて埋め込みたいページを全面にする。
     Sleep 300

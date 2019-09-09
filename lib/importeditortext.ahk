@@ -3,7 +3,7 @@
 ;通常は後者が選択される。
 ;アクティブウィンドウ切り替えられる。
 ;クリップボードの内容は破壊される。
-importEditorText(useGAS = False){
+importEditorText(editorurl, useGAS = False){
     if useGAS {
         ;Google Apps Script で作成したインポートプログラムを使う場合。
         Process,Exist,eltest.exe
@@ -21,7 +21,7 @@ importEditorText(useGAS = False){
     Else
     {
         ;音声入力エディタのテキストをクリップボードにカットする。
-        cutEditorText()
+        cutEditorText(editorurl)
         ;クリップボード内のテキストを eltestで変換して返す。
         replaceClipboard()
 

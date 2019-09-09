@@ -1,9 +1,9 @@
 ﻿; 作業用 Chrome で検索タブを開いて音声検索する。
-googlesearch(){
-    global editor := 0
-    global work := 0
+googlesearch(workurl){
+    global work
     ; 作業ウィンドウ探す。
-    detectchrome()
+    if (!work or work = 0)
+        detectwork(workurl)
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
     warnBox(work = 0, 202)
     Sleep 100

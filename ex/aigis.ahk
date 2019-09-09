@@ -26,6 +26,9 @@
     Return
 ;Win+ M で アシストモードを開始。
 #m::
+    ;マウス座標の指定と画像を探す処理の座標はスクリーン上の絶対座標で指定する。
+    CoordMode,Pixel,Screen
+    CoordMode,Mouse,Screen
     SetTimer, aigis, off
     stay := 0
     cx := -1
@@ -39,6 +42,9 @@
 ;クリックはゆっくりめで監視する。
 ;ユニット出撃のためのドラッグ監視はしない。
 #u::
+    ;マウス座標の指定と画像を探す処理の座標はスクリーン上の絶対座標で指定する。
+    CoordMode,Pixel,Screen
+    CoordMode,Mouse,Screen
     SetTimer, aigis, off
     stay := 0
     cx := -1

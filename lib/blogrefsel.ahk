@@ -1,11 +1,10 @@
 ﻿;作業用ウィンドウで開いているページを編集中のブログに選択文字列でリンク挿入する 。
-blogrefsel(){
-    global editor := 0
-    global work := 0
+blogrefsel(workurl){
+    global work
     ; 作業ウィンドウ探す。
-    detectchrome()
+    if (!work or work = 0)
+        detectwork(workurl)
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(editor = 0, 201)
     warnBox(work = 0, 202)
     ; 作業ウィンドウに切り替えて埋め込みたいページを全面にする。
     Sleep 100
@@ -20,6 +19,7 @@ blogrefsel(){
     ; 編集ホームに切り替わったらリンクを貼り付ける。
     {
         ; 入力フォームで選択中の文字をカットする。
+        Sleep 100
         Send,^x
         Sleep 100
         t := clipboard

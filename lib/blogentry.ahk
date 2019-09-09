@@ -4,11 +4,15 @@
 ;テキストの内容はeltestによって展開される。
 ;タイトルに特定のキーワードが含まれていた場合、templateエレクトリの下のテンプレートファイルを読み込んで記事本文に貼り付ける。
 ;クリップボードの内容は破壊される 。
-blogentry(hatena){
-    global editor := 0
-    global work := 0
-    ; 作業ウィンドウ探す。
-    detectchrome()
+blogentry(hatena, editorurl, workurl){
+    global editor
+    global work
+    if (!editor or editor = 0)
+        detecteditor(editorurl)
+    ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
+    warnBox(editor = 0, 201)
+    if (!work or work = 0)
+        detectwork(workurl)
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
     warnBox(work = 0, 202)
     ; 作業ウィンドウに切り替える 。
@@ -25,7 +29,7 @@ blogentry(hatena){
     Send,{enter}
     Sleep 3000
     ;音声入力ウィンドウのテキストを加工しながらクリップボードに放り込む。
-    importEditorText(False)
+    importEditorText(editorurl)
     ;作業ウィンドウのエントリページに切り替えて。
     WinActivate,ahk_id %work%
     Sleep 100

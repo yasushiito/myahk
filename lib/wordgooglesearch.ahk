@@ -1,6 +1,6 @@
 ﻿;アクティブウィンドウで選択している単語を Google 検索。
 ;アクティブにされているアプリケーションの種類によって選択単語の切り取り方が変わることもある。
-wordgooglesearch(){
+wordgooglesearch(workurl){
     ;作業ウインドウを検索ブラウザとするために ID をグローバル変数からもらう。
     global work
     ;アクティブウィンドウを記憶しておく。
@@ -15,6 +15,8 @@ wordgooglesearch(){
         return
     }
     ;作業ウィンドウをアクティブにして新しいタブから Google 検索する。
+    if (!work or work = 0)
+        detectwork(workurl)
     WinActivate, ahk_id %work%
     ;新しいタブが開くのを少し待ってから検索ワードを貼り付けて検索する。
     Send, ^t

@@ -1,7 +1,8 @@
-﻿;警告メッセージの準備。
+﻿;スタートアップに登録すると Windows 起動直後にクリップボードを操作できなくてエラーが出たのでリレーをかけてみる。
+Sleep, 3000
+;警告メッセージの準備。
 warnMessage := Object()
 setWarn()
-;設定の読み込み。
 ;はてなブログの ID。
 hatenaid := ""
 ;音声入力エディタの URL。
@@ -10,7 +11,7 @@ editorurl := ""
 workurl := ""
 ;Facebook でメッセンジャーする相手の ID。
 messengerfriendid := ""
-
+;設定の読み込み。
 getconfig()
 Menu, tray, click, 1
 Menu, tray, add, config, config
@@ -25,23 +26,23 @@ config:
 
 #insert::
 ; はてなブログの新規エントリーを用意する。
-    blogentry(hatenaid)
+    blogentry(hatenaid, editorurl, workurl)
     Return
 ;作業用ウィンドウで開いているページを編集中のブログにリンク挿入する。
 #=::
-    blogrefemb()
+    blogrefemb(workurl)
     Return
 ;作業用ウィンドウで開いているページを編集中のブログに選択文字列でリンク挿入する 。
 #+=::
-    blogrefsel()
+    blogrefsel(workurl)
     Return
 ;作業用ウィンドウで開いているGithub 上のファイルを編集中のブログに挿入する。
 #^=::
-    blogrefgithub()
+    blogrefgithub(workurl)
     Return
 ;Chrome の新規タブで音声検索する。
 #home::
-    googlesearch()
+    googlesearch(workurl)
     Return
 ;常用アプリケーションのウィンドウサイズと位置の調整。
 #+home::
@@ -49,7 +50,7 @@ config:
     Return
 ; Google Chrome に表示されているページをはてブする 。
 #2::
-    hatebucrm()
+    hatebucrm(editorurl, workurl)
     Return
 ; Firefox で表示しているページをはてブする 。
 #+2::
@@ -64,7 +65,7 @@ ScrollLock::
     KeyWait, LButton, T1
     if ErrorLevel
     {
-        wordgooglesearch()
+        wordgooglesearch(workurl)
         Return
     }
 
@@ -77,7 +78,7 @@ Pause::
     KeyWait, LButton, T1
     if ErrorLevel
     {
-        portAny()
+        portAny(editorurl)
         Return
     }
     mmic(editorurl)

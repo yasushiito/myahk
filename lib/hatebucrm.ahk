@@ -1,12 +1,13 @@
 ﻿;Google Chrome に表示されているページをはてブする 。
-hatebucrm(){
-    global work := 0
+hatebucrm(editorurl, workurl){
+    global work
     ; 作業ウィンドウ探す。
-    detectchrome()
+    if (!work or work = 0)
+        detectwork(workurl)
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
     warnBox(work = 0, 202)
     ;音声入力ウィンドウのテキストを加工しながらクリップボードに放り込む。
-    importEditorText(False)
+    importEditorText(editorurl)
     WinActivate,ahk_id %work%
     Sleep 100
     ;はてブツールバーのブックマークポップアップを開く。
