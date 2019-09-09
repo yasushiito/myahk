@@ -51,11 +51,15 @@ blogentry(hatena, editorurl, workurl){
     }
     ; タイトルにフォーカスを移す 。
     Send,+{Tab}
+    Sleep 100
+    Send,+{Tab}
     ;変換されたタイトルを貼り付け。
     Clipboard := t
     Send,^v
     Sleep 100
     ; フォーカスをタイトルから本文のテキストエリアに移す 。
+    Send,{Tab}
+    Sleep 100
     Send,{Tab}
     return
 }
