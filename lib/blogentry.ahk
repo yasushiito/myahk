@@ -28,6 +28,13 @@ blogentry(hatena, editorurl, workurl){
     Send, ^v
     Send,{enter}
     Sleep 3000
+    ;バックアップを復元するメッセージが表示されていることがあるので 復元ボタンに移動。
+    ;メッセージがない場合はタイトルに移動して enter を空打ちして フォーカスを本部に移動させる。
+    ;ここで SHIFT + tab 入力すれば必ず入力フォーカスがタイトルに移動しているので不確定要素がなくなる。
+    Send,+{Tab}
+    Sleep 100
+    Send,{enter}
+    Sleep 100
     ;音声入力ウィンドウのテキストを加工しながらクリップボードに放り込む。
     importEditorText(editorurl)
     ;作業ウィンドウのエントリページに切り替えて。
@@ -49,17 +56,15 @@ blogentry(hatena, editorurl, workurl){
         Send,^v
         Sleep 100
     }
+    Clipboard := t
     ; タイトルにフォーカスを移す 。
     Send,+{Tab}
     Sleep 100
-    Send,+{Tab}
     ;変換されたタイトルを貼り付け。
-    Clipboard := t
     Send,^v
-    Sleep 100
+    Sleep 300
     ; フォーカスをタイトルから本文のテキストエリアに移す 。
     Send,{Tab}
     Sleep 100
-    Send,{Tab}
     return
 }
