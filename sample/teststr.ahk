@@ -77,4 +77,16 @@ if (1 = 1 and initstr= "")
     MsgBox, , and で繋ぐ複雑な判定。, 括弧で囲んで引用句を使うと OK。,5
 ;括弧で囲まれているので instr の右側に引用符を入れることで空文字列と比較できる。
 
+;念のため空文字列ではない時も試してみる。
+if 1 = 1 and abc = abcdefg
+    MsgBox, , and で繋ぐabc判定。, 右側の文字列を引用符で囲まない時不成立。,5
+
+if 1 = 1 and abc = "abcdefg"
+    MsgBox, , and で繋ぐabc判定。, 右側を引用符で囲むとき不成立。,5
+
+if (1 = 1 and abc = abcdefg)
+    MsgBox, , and で繋ぐabc判定。, 括弧で囲んで引用符では囲まない時不成立。,5
+
+if (1 = 1 and abc = "abcdefg")
+    MsgBox, , and で繋ぐabc判定。, 括弧で囲んで引用符でも囲むときok,5
 Return
