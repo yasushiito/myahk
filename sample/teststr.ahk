@@ -3,18 +3,20 @@ if def
     MsgBox, , 変数真偽値でif。, 変数が初期化されている。 ,5
 if !undef
     MsgBox, , 変数真偽値でif。, 初期化されていない変数をnotで判定できるか。 ,5
+if !""
+    MsgBox, , 真偽値でif。, 空文字列は真か偽か。 ,5
 
 initstr :=
 abc := "abcdefg"
 c := "c"
-MsgBox, 代入結果の確認。, 右側に何もない時, % initstr ,5
+emptystr := ""
+MsgBox , , 代入 右側に何もない時 , % initstr ,5
 ;次の行の 影響はない。
 
-MsgBox, 代入結果の確認。, “”で囲んで代入した場合。, % abc ,5
+MsgBox, , 代入 “”で囲んで代入した場合。, % abc ,5
 ;代入された文字列には引用符が含まれていないことを確認。
 
-emptystr := ""
-MsgBox, 代入結果の確認。, “”で代入した場合。, % emptystr ,5
+MsgBox, , 代入 “”で代入した場合。, % emptystr ,5
 ;代入された文字列には引用符が含まれていないことを確認。
 
 
