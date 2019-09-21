@@ -8,11 +8,10 @@ hatebufox(){
     ; firefoxウィンドウ探す。
     detectfirefox()
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(!fox, 203)
-    ;warnBox(!work, 202)
+    warnBox(fox = 0, 203)
+    ;warnBox(work = 0, 202)
     ;音声入力ウィンドウのテキストを加工しながらクリップボードに放り込む。
     importEditorText(editorurl)
-    Clipboard := dropcrlf(Clipboard)
     ;かつてはツールバーの調子が悪いことがあったので Chrome で開き直してブックマークしていたが安定したのでコメントにした。
     ;WinActivate,ahk_id %work%
     ;Sleep 100

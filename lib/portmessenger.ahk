@@ -7,8 +7,8 @@ portmessenger(editorurl, messengerfriendid){
     ; 作業ウィンドウ探す。
     detectfirefox()
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(!fox, 203)
-    ;warnBox(!work, 202)
+    warnBox(fox = 0, 203)
+    ;warnBox(work = 0, 202)
     ;Firefox をアクティブにしてタブを切り替えながらメッセンジャーページを探す。
     WinActivate,ahk_id %fox%
     Sleep 100

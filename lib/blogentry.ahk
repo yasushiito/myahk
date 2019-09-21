@@ -10,11 +10,11 @@ blogentry(hatena, editorurl, workurl){
     if (!editor or editor = 0)
         detecteditor(editorurl)
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(!editor, 201)
+    warnBox(editor = 0, 201)
     if (!work or work = 0)
         detectwork(workurl)
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(!work, 202)
+    warnBox(work = 0, 202)
     ; 作業ウィンドウに切り替える 。
     Sleep 100
     WinActivate,ahk_id %work%

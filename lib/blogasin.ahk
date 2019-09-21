@@ -16,14 +16,14 @@ blogasin(workurl){
     if !work or work = 0
         detectwork(workurl)
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(!work, 202)
+    warnBox(work = 0, 202)
     ; 作業ウィンドウに切り替えて埋め込みたいページを全面にする。
     Sleep 300
     WinActivate,ahk_id %work%
     Sleep 300
     ; カレントタブがamazonを選択してなければタブの中から探してみる。
     amazon := selecttab(work,"", "https://www.amazon.co.jp/")
-    warnBox(!amazon, 303)
+    warnBox(amazon = False, 303)
     
     ; URL バーをフォーカスして URL をすべて選択してコピー 。
     getbrowserurl()
@@ -53,7 +53,7 @@ blogasin(workurl){
     clipboard = [asin:%asin%:detail]
     ; ブラウザのタブを切り替えながら編集ホームを探す 。
     entry := selecttabblogentry(work)
-    warnBox(!entry, 302)
+    warnBox(entry = False, 302)
     ; 編集ホームに切り替わったらリンクを貼り付ける。
     Send,^v
     return

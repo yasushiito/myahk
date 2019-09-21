@@ -38,7 +38,7 @@ googlesearchfordomain(target, title){
     }
     ;何のドメインにも該当しなかったら単純に選択テキストをコピーする。
     ;アプリケーションによっては何もコピーできないことがあるのでクリップボードをクリア。
-    clipboard := ""
+    clipboard :=
     Send, ^c
     Sleep, 100
     return

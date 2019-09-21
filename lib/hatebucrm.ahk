@@ -5,10 +5,9 @@ hatebucrm(editorurl, workurl){
     if (!work or work = 0)
         detectwork(workurl)
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(!work, 202)
+    warnBox(work = 0, 202)
     ;音声入力ウィンドウのテキストを加工しながらクリップボードに放り込む。
     importEditorText(editorurl)
-    Clipboard := dropcrlf(Clipboard)
     WinActivate,ahk_id %work%
     Sleep 100
     ;はてブツールバーのブックマークポップアップを開く。

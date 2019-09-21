@@ -5,6 +5,8 @@ detectwork(url){
     IfWinExist, ahk_id %work%
         Return work
     work := 0
+    ;念のためクリップボードをバックアップしておく。
+    cb := Clipboard
     ;全てのウィンドウを調べる。
     WinGet, windows, list
     loop ,%windows%
@@ -21,11 +23,15 @@ detectwork(url){
             ;Chrome Extension Copy all URLs を起動して ウィンドウで開いているすべてのタブの URL を取得する。
             Send, !+c
             ;作業ウィンドウを特定付ける URL が含まれてイルカ調べる。
-            IfInString, Clipboard, %url%, {
+            StringGetPos, pos, Clipboard, %url%
+            if ErrorLevel = 0
+            {
                 work := wid
                 Break
             }
         }
     }
+    ;クリップボードにバックアップを返す。
+    Clipboard := cb
     Return work
 }

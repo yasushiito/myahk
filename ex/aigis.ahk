@@ -12,7 +12,6 @@
 ;クロームのポジションはウィンドウの位置とサイズをアジャストするスクリプトによって調整しています。
 ;http://yasushiito.hatenablog.com/entry/2019/06/10/103335
 #Persistent
-#SingleInstance force
     global editor := 0
     global cx := 0  ;マウスが停滞していることを判定するために前回のマウス位置を記憶しておく。
     global cy := 0  ;マイナスの時は判定エリア外に出ていたとのこと。

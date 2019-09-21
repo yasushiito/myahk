@@ -13,6 +13,7 @@
     Clipboard := "URL の取得に失敗しました。"
     Send,!c
     ;複数タブの URL をコピーできるタイプのエクステンションは改行コードを含むことがあるので削除しておく。
-    Clipboard := dropcrlf(Clipboard)
+    Clipboard := RegExReplace(Clipboard, "\n", "")
+    Clipboard := RegExReplace(Clipboard, "\r", "")
     return Clipboard
 }

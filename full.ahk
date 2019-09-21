@@ -1,4 +1,5 @@
-﻿#SingleInstance force
+﻿;スタートアップに登録すると Windows 起動直後にクリップボードを操作できなくてエラーが出たのでリレーをかけてみる。
+Sleep, 3000
 ;警告メッセージの準備。
 warnMessage := Object()
 setWarn()
