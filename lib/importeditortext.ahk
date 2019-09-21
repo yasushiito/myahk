@@ -8,7 +8,7 @@ importEditorText(editorurl, useGAS = False){
         ;Google Apps Script で作成したインポートプログラムを使う場合。
         Process,Exist,eltest.exe
         eltest := %ErrorLevel%
-        warnBox(eltest = 0, 204)
+        warnBox(!eltest, 204)
         ;音声入力されたテキストをクリップボードに転送する
         Sleep 100
         WinActivate,ahk_exe eltest.exe

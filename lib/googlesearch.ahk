@@ -5,7 +5,7 @@ googlesearch(workurl){
     if (!work or work = 0)
         detectwork(workurl)
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(work = 0, 202)
+    warnBox(!wor, 202)
     Sleep 100
     WinActivate,ahk_id %work%
 ;    Sleep 300

@@ -5,8 +5,6 @@ detecteditor(url){
     IfWinExist, ahk_id %editor%
         Return editor
     editor := 0
-    ;念のためクリップボードをバックアップしておく。
-    cb := Clipboard
     WinGet, windows, list
     ;全てのウィンドウを調べる。
     loop ,%windows%
@@ -23,15 +21,11 @@ detecteditor(url){
             ;Chrome Extension Copy all URLs を起動して ウィンドウで開いているすべてのタブの URL を取得する。
             Send, !+c
             ;作業ウインドウを特定付ける URL を開いているWindows であれば作業用ウィンドウとする。
-            StringGetPos, pos, Clipboard, %url%
-            if ErrorLevel = 0
-            {
+            IfInString, Clipboard, %url%,{
                 editor := wid
                 Break
             }
         }
     }
-    ;クリップボードにバックアップを返す。
-    Clipboard := cb
     return editor
 }

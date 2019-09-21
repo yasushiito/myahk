@@ -16,7 +16,7 @@ blogrefemb(workurl){
     if (!work or work = 0)
         detectwork(workurl)
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(work = 0, 202)
+    warnBox(!work, 202)
     ; 作業ウィンドウに切り替えて埋め込みたいページを全面にする。
     Sleep 100
     WinActivate,ahk_id %work%
@@ -78,7 +78,7 @@ clipblockquotefordomain(url, title, selectedtext){
     ;対応すべきドメインが見つからないので汎用の引用スタイルでタグを返す。
     txt :=
     ;引用のタグを生成する。
-    ;txt := ">>`n" . selectedtext . "`n<<`n"
+    ;txt := ">>" . selectedtext . "`n<<`n"
     txt := "><blockquote cite=""" . url . """><p>" . selectedtext . "</p><cite><a href=""" . url . """>" . title . "</a></cite></blockquote><`n"
     ;クリップボードに転送して呼び出し元に復帰する。
     clipboard := txt

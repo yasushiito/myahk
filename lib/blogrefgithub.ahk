@@ -18,14 +18,14 @@ blogrefgithub(workurl){
     if (!work or work = 0)
         detectwork(workurl)
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(work = 0, 202)
+    warnBox(!work, 202)
     ; 作業ウィンドウに切り替える。
     Sleep 100
     WinActivate,ahk_id %work%
     Sleep 300
     ; カレントタブがGitHubを選択してなければタブの中から探してみる。
     github := selecttab(work,"", "https://github.com/")
-    warnBox(github = False, 301)
+    warnBox(!github, 301)
     
     ; URL バーをフォーカスして URL をすべて選択してコピー 。
     getbrowserurl()
@@ -34,7 +34,7 @@ blogrefgithub(workurl){
     clipboard = <script src="http://gist-it.appspot.com/%url%"></script>
     ; ブラウザのタブを切り替えながら編集ホームを探す 。
     entry := selecttabblogentry(work)
-    warnBox(entry = False, 302)
+    warnBox(!entry, 302)
     ; 編集ホームに切り替わったらリンクを貼り付ける。
     Send,^v
     return

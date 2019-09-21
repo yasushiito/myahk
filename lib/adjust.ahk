@@ -5,6 +5,9 @@
 ;Firefox。
 ;ランチャーアプリeltest。
 ;Visual Studio code。
+;注意。
+;Google Chrome で 作業ウィンドウが見つからない場合は強制的に Chrome を閉じることがあるので実行前には注意すること。
+
 adjust(){
     global editor := 0
     global work := 0
@@ -46,11 +49,11 @@ adjust(){
     detectfirefox()
 
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(work = 0, 202)
+    warnBox(!work, 202)
     ;位置とサイズを調整する。
     WinMove,ahk_id %work%, ,600,20,1200,1050
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
-    warnBox(editor = 0, 201)
+    warnBox(!editor, 201)
     ;位置とサイズを調整する。
     WinMove,ahk_id %editor%, ,-120,-220,900,600
     if fox <> 0
