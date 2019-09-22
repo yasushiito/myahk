@@ -12,6 +12,7 @@ hatebufox(){
     ;warnBox(work = 0, 202)
     ;音声入力ウィンドウのテキストを加工しながらクリップボードに放り込む。
     importEditorText(editorurl)
+    Clipboard := cutcrlf(Clipboard)
     ;かつてはツールバーの調子が悪いことがあったので Chrome で開き直してブックマークしていたが安定したのでコメントにした。
     ;WinActivate,ahk_id %work%
     ;Sleep 100

@@ -23,9 +23,7 @@ detectwork(url){
             ;Chrome Extension Copy all URLs を起動して ウィンドウで開いているすべてのタブの URL を取得する。
             Send, !+c
             ;作業ウィンドウを特定付ける URL が含まれてイルカ調べる。
-            StringGetPos, pos, Clipboard, %url%
-            if ErrorLevel = 0
-            {
+            IfInString, Clipboard, %url%, {
                 work := wid
                 Break
             }
