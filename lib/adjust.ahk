@@ -21,6 +21,7 @@ adjust(){
         ;すでに開いていた Chrome を閉じる。
         ;一枚でも Chrome ウィンドウが起動していると いつも使っているタブを開いて起動できない。
         closeblankchrome()
+        Sleep, 1000
         ;新しいウィンドウで起動すること。
         Run , %browser% --new-window
         Sleep, 10000
