@@ -96,6 +96,17 @@ aigis:
         stay := 0
         cx := -1
         dnd := False
+        bcx := -1
+    }
+    ;ステータスエリアのキャンセル可否判定。
+    if bcx >= 0
+    {
+        ;一度でもゲーム画面をクリックしたなら座標bcxが保持されているので現在日と比較する。
+        if (Abs(mx - bcx) > 7 or Abs(my - bcy) > 7)
+        {
+            ;マウスポインターが大きく移動したので連打の心配はないのでクリック。
+            dblstopper := False
+        }
     }
 ;一定期間マウスポインターを停滞させたか。
     if stay > 3
@@ -106,9 +117,9 @@ aigis:
 ;連打しないように判定はイコールを使って一度だけ。
             if stay = 4
             {
-            Send, {LButton down}
-            Sleep, 100
-            Send, {LButton up}
+                Send, {LButton down}
+                Sleep, 100
+                Send, {LButton up}
             }
             return
         }
@@ -136,34 +147,33 @@ aigis:
 ;ステータス表示のためのクリック。
 ;割り込み6回に1度に対してクリックするべきか判定する。
 ;移動中から停止した時は必ずクリックしないとフィールドをクリックしてステータス表示をキャンセルできない。
-            if Mod(stay, 5) =0
+            if Mod(stay, 5) = 0
             {
 ;ステータスとスキルボタンを消さないようにステータス表示中はクリックしない。
                 ImageSearch, fx, fy, 900,480,945,520,*40 blue.bmp
-                if ErrorLevel = 1
+                if (ErrorLevel = 1 or bcx < 0)
                 {
-                    MouseClick, Left
+                    Send, {LButton down}
+                    Sleep, 20
+                    Send, {LButton up}
                     ;クリックしたので座標記録しておく。
                     bcx := mx
                     bcy := my
+                    dblstopper := True
                 }
                 Else
                 {
-                    ;以前にクリックされているなら。
-                    if bcx >= 0
+                    ;マウスポインターが大きく移動したなら。
+                    if !dblstopper
                     {
-                        ;前回クリック位置からある程度離れてなければ クリックしない。
-                        if Abs(mx - bcx) > 7 and Abs(my - bcy) > 7
-                        {
-                            ;マウスポインターが大きく移動したので連打の心配はないのでクリック。
-                            bcx := -100
-                            MouseClick, Left
-                            ;クリックした座標を記憶しておく。
-                            bcx := mx
-                            bcy := my
-                           
-                        }
-
+                        ;連打の心配はないのでクリック。
+                        Send, {LButton down}
+                        Sleep, 20
+                        Send, {LButton up}
+                        ;クリックした座標を記憶しておく。
+                        bcx := mx
+                        bcy := my
+                        dblstopper := True
                     }
                 }
             }
