@@ -16,6 +16,12 @@ radikoplay(channel, onairtime="", wday=""){
     if channel =
     {
         return
+    }   
+    dev := WaitBTConnect("images\btb9.bmp")
+    if !dev
+    {
+        MsgBox, , ,スピーカーが見つかりませんでした。 ,5
+        return
     }
     url := "http://radiko.jp/#!/"
     if onairtime =
@@ -39,48 +45,40 @@ radikoplay(channel, onairtime="", wday=""){
     ;Edge は実行ファイルではないので START コマンドから起動しなければならないのでバッチファイルから起動してもらう。
     Run, microsoft-edge:%url%
     ;ページが開くまで待つ。
-    Sleep 10000
-
+    Sleep 5000
+    ;ウィンドウ左端にはスクリーンキーボードなどのオーバーレイアプリが開いてボタンを隠してしまうのでスクリーン右側に移動させる。
+    WinMove, A,,600, 0
+    Sleep 5000
     ;ここからは再生ボタンを探してクリックする処理。
-
-    ;作業ディレクトリからの相対パスで探すので作業ディレクトリをバックアップして書き換える。
-    wd := A_WorkingDir
-    SetWorkingDir, %A_ScriptDir%
-    ;再生ボタンの画像が所定のディレクトリに用意されている場合に限る。
-    if FileExist(btnplay)
+    ;クリックミスを考慮して3階までリトライする。
+    Loop, 3
     {
-        CoordMode,Pixel,Relative
-        WinGetPos, , , Width, Height, A
-        ;再生ボタンを探す。
-        ImageSearch, x, y, 0, 0, Width, Height,*30 %btnplay%
-        if ErrorLevel = 0
+        ;ボタンを探してクリック。
+        r := ClickButton(btnplay)
+        ;連打防止のためクリック成功失敗に関わらず3秒間停止。
+        Sleep 3000
+        ;ボタンクリックに成功していたらループを中断。
+        if r
+            Break
+    }
+    ;タイムフリーの時に表示される注意喚起ウィンドウを OK ボタンクリックで閉じる。
+    if btnok
+    {
+        ;クリックミスを考慮して3階までリトライする。
+        Loop, 3
         {
-            ;ボタンが見つかったので移動してクリック。
-            MouseMove, x, y, 2
-            MouseClick, Left
-            ;タイムツリーの時はメッセージが表示されるので OK ボタンをクリックしなければならない。
-            if btnok
-            {
-                ;OK ボタンのサンプル画像ファイルの存在を確認しておく。
-                if FileExist(btnok)
-                {
-                    Sleep 1000
-                    ;okボタンを探す。
-                    ImageSearch, x, y, 0, 0, Width, Height,*30 %btnok%
-                    if ErrorLevel = 0
-                    {
-                        MouseMove, x, y, 2
-                        MouseClick, Left
-                    }
-
-                }
-            }
-            ;プレイヤーが起動してフォーカスを奪われる。
-            ;ページの URL が取得できなくなるので入力フォーカスをページに戻す。
-            Send,{Tab}
+            ;OK ボタンを探してクリック。
+            r := ClickButton(btnok)
+            ;連打防止のためクリック成功失敗に関わらず3秒間停止。
+            Sleep 30000
+            ;ボタンクリックに成功していたらループを中断。
+            if r
+                Break
         }
     }
-    SetWorkingDir, wd
+    ;プレイヤーが起動してフォーカスを奪われる。
+    ;ページの URL が取得できなくなるので入力フォーカスをページに戻す。
+    Send,{Tab}
 
     return
 }
