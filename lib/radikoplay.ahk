@@ -76,9 +76,10 @@ radikoplay(channel, onairtime="", wday=""){
                 Break
         }
     }
-    ;プレイヤーが起動してフォーカスを奪われる。
+    ;再生を始めるとプレイヤーが起動してフォーカスを奪われる。
     ;ページの URL が取得できなくなるので入力フォーカスをページに戻す。
-    Send,{Tab}
+    if r
+        Send,{Tab}
 
     return
 }

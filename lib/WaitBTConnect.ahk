@@ -31,12 +31,19 @@ WaitBTConnect(img){
                 Sleep 1000
                 Send, {Esc}
                 return True
-            }
+            }   
         }
         SetWorkingDir, wd
         ;見つからなかったらデバイス一覧を閉じて一分間待機した後にリトライする。
         Send, {Esc}
-        Sleep, 60000
+        Loop, 12
+        {
+            ;左クリックをしていればデバイスが準備できてなくても無視して続行する。
+            GetKeyState, l, LButton
+            if l = D
+                return True
+            Sleep, 5000
+        }
     }
     ;最後まで見つからなかったので失敗を返す。
     return False
