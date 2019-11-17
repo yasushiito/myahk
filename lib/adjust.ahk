@@ -54,10 +54,12 @@ adjust(){
     warnBox(editor = 0, 201)
     ;位置とサイズを調整する。
     WinMove,ahk_id %editor%, ,-120,-220,900,600
-    if fox <> 0
+    if fox = 0
     {
-        WinMove,ahk_id %fox%, ,660,40,1240,1000
+        Run , "C:\Program Files\Mozilla Firefox\firefox.exe"
+        Sleep, 5000
     }
+    WinMove,ahk_id %fox%, ,660,40,1240,1000
     Process,Exist,eltest.exe
     eltest := %ErrorLevel%
     If eltest <> 0
