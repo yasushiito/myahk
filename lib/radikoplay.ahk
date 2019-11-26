@@ -9,18 +9,11 @@
 ;10秒以内に番組のページが開けなかった場合は再生に失敗する。
 
 radikoplay(channel, onairtime="", wday=""){
-    MsgBox, , ,まもなくラジオの再生が始まります。 ,5
     ;Microsoft Edge を閉じる強制的に。
     closeedge()
     ;放送局が指定されていない場合は再生しない。
     if channel =
     {
-        return
-    }   
-    dev := WaitBTConnect("images\btb9.bmp")
-    if !dev
-    {
-        MsgBox, , ,スピーカーが見つかりませんでした。 ,5
         return
     }
     url := "http://radiko.jp/#!/"

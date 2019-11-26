@@ -1,0 +1,2 @@
+    WaitBTStandby()
+    Return
