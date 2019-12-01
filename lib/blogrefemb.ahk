@@ -111,7 +111,7 @@ blockquoteyoutube(url, title, selectedtext){
     if x > 0
     {
         ;正規表現を使って idらしい部分を取り出す。
-        pos := RegExMatch(url,"v\=\w*", vid)
+        pos := RegExMatch(url,"v\=[a-zA-Z0-9\-]*", vid)
         ;見つかった場合。
         If pos > 0
         {
@@ -160,7 +160,7 @@ embedyoutube(url, title){
     if x > 0
     {
         ;正規表現を使って idらしい部分を取り出す。
-        pos := RegExMatch(url,"v\=\w*", vid)
+        pos := RegExMatch(url,"v\=[a-zA-Z0-9\-]*", vid)
         ;見つかった場合。
         If pos > 0
         {
