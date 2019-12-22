@@ -11,9 +11,9 @@
 
 WaitBTStandby(){
     MsgBox, , ,まもなくラジオの再生が始まります。 ,5
-    ;デバイスの接続を確認できるまで30回リトライして待機する。
+    ;デバイスの接続を確認できるまで3回リトライして待機する。
     ;中断したい時はタスクバーのアイコンダブルクリックでウィンドウを開いてスクリプトを停止する。
-    Loop, 30
+    Loop, 3
     {
         ;マウスポインタの位置によっては目的の画像がハイライトされていて認識できないことがあるのでマウスポインターをすみっこに移動させておく。
         MouseMove, A_ScreenWidth, 0, 2
@@ -27,30 +27,42 @@ WaitBTStandby(){
             ;クリックできたのでデバイス一覧を閉じる。
             Sleep, 5000
             Send, {Esc}
+            Sleep, 15000
+        }
+        ;デバイスを見失っているようなので一度切断操作を行う。
+        rd := ClickButton("images\bth163off.bmp")
+        if rd
+        {
+            ;スペースキーで検索ボックスを開いてデバイス名を入力。
+            Send, {Space}
+            Sleep 1000
+            Send, h-163
+            ;デバイスにフォーカスを合わせて切断ボタンを押す。
+            Sleep 1000
+            Send, {Tab}
+            Sleep 1000
+            Send, {Enter}
+            Sleep 1000
+            Send, {Tab}
+            Sleep 1000
+            Send, {Enter}
+            Sleep, 5000
+        }
+        ;デバイスが接続できていることを確認したら終了する。
+        rd := ClickButton("images\bth163cd.bmp", True)
+        if rd
+        {
+            ;デバイス一覧を閉じる。
+            Sleep, 5000
+            Send, {Esc}
             return True
         }
-        ;デバイスは接続されているようなので切断操作を行う。
-        ;スペースキーで検索ボックスを開いてデバイス名を入力。
-        Send, {Space}
-        Sleep 1000
-        Send, h-163
-        ;デバイスにフォーカスを合わせて切断ボタンを押す。
-        Sleep 1000
-        Send, {Tab}
-        Sleep 1000
-        Send, {Enter}
-        Sleep 1000
-        Send, {Tab}
-        Sleep 1000
-        Send, {Space}
-        Sleep, 5000
-        Send, {Esc}
-
         ;左クリックをしていれば再接続できなくても無視して続行する。
         GetKeyState, l, LButton
         if l = D
             return True
-        Sleep, 5000
+        Sleep, 15000
+        Send, {Esc}
     }
     ;最後まで再接続操作できなかったので失敗を返す。
     MsgBox, , ,スピーカーが見つかりませんでした。 ,5
