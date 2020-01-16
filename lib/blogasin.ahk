@@ -22,7 +22,7 @@ blogasin(workurl){
     WinActivate,ahk_id %work%
     Sleep 300
     ; カレントタブがamazonを選択してなければタブの中から探してみる。
-    amazon := selecttab(work,"", "https://www.amazon.co.jp/")
+    amazon := selecttab(work,"", "://www.amazon.co.jp/")
     warnBox(amazon = False, 303)
     
     ; URL バーをフォーカスして URL をすべて選択してコピー 。
