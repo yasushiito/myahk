@@ -1,4 +1,5 @@
 ﻿; edge でRadiko の放送局のライブページを開いて再生する。
+;Radiko の友達に教える機能で Twitter と連携して番組情報をtweetする。
 ; パラメータ
 ;arg1:再生したい放送局の名称をアルファベットで渡す。
 ;arg2:タイムフリーで過去の番組を聴くなら時分秒の形式で放送時間を渡す。
@@ -22,6 +23,10 @@ radikoplay(channel, onairtime="", wday=""){
         ;ライブページの URL と再生ボタンのサンプル画像ファイル名を用意する。
         url := url . "live/" . channel
         btnplay := "images\radikoplay.bmp"
+        ;友達に教えるボタンのサンプル画像ファイル名。
+        btnshare := "images\radikosharelv.bmp"
+        ;SHARE ウィンドウを閉じるバツボタンのサンプル画像(青)。
+        btnclose := "images\radikocloselv.bmp"
     }
     Else
     {
@@ -33,7 +38,15 @@ radikoplay(channel, onairtime="", wday=""){
         url := url . "ts/" . channel . "/" . onairdate . onairtime
         btnplay := "images\radikotsplay.bmp"
         btnok := "images\radikotsok.bmp"
+        ;友達に教えるボタンのサンプル画像ファイル名。
+        btnshare := "images\radikosharets.bmp"
+        ;;SHARE ウィンドウを閉じるバツボタンのサンプル画像(赤)。
+        btnclose := "images\radikoclosets.bmp"
     }
+    ;Twitter でシェアボタン。
+    btnsharetwitter := "images\radikosharetwico.bmp"
+    ;Twitter ポップアップの送信ボタンのサンプル画像。
+    btnsharetweet := "images\radikosharetwok.bmp"
     Sleep 1000
     ;クリックミスを考慮して3階までリトライする。
     Loop, 3
@@ -43,7 +56,7 @@ radikoplay(channel, onairtime="", wday=""){
         ;ページが開くまで待つ。
         Sleep 5000
         ;ウィンドウ左端にはスクリーンキーボードなどのオーバーレイアプリが開いてボタンを隠してしまうのでスクリーン右側に移動させる。
-        WinMove, A,,600, 0
+        WinMove, A,,600, 0, 1200, A_ScreenHeight
         Sleep 5000
         ;ここからは再生ボタンを探してクリックする処理。
         ;ボタンを探してクリック。
@@ -64,13 +77,62 @@ radikoplay(channel, onairtime="", wday=""){
         Loop, 3
         {
             ;OK ボタンを探してクリック。
+            ;フォントサイズがウィンドウのサイズと比例しているのでブラウザの大きさを変えると動かなくなる。
             r := ClickButton(btnok)
-            ;連打防止のためクリック成功失敗に関わらず3秒間停止。
-            Sleep 30000
+            ;連打防止のためクリック成功失敗に関わらず5秒間停止。
+            Sleep 5000
             ;ボタンクリックに成功していたらループを中断。
             if r
                 Break
         }
+    }
+
+    ;ここからは友達に教える機能の Twitter 連携。
+
+    ;友達に教えるボタンを探してクリックする
+    ; ページに表示される情報の密度次第で画面に表示されていないこともある。
+    Loop, 3
+    {
+        ;友達に教えるボタンを探してクリック。
+        r := ClickButton(btnshare)
+        ;連打防止のためクリック成功失敗に関わらず5秒間停止。
+        Sleep 5000
+        ;ボタンクリックに成功していたらループを中断。
+        if r
+            Break
+    }
+    ;連携する SNS のアイコン一覧が表示されるので Twitter アイコンを探してクリックする。
+    ;Twitter のポップアップが番組情報入りで開くので送信ボタンを探してクリックする。
+    ;ブラウザが Twitter にログインしていないとこける。
+    ;その場合ポップアップは閉じられずに残る。
+    Loop, 3
+    {
+        ;Twitter アイコンを探してクリック。
+        r := ClickButton(btnsharetwitter)
+        ;連打防止のためクリック成功失敗に関わらず5秒間停止。
+        Sleep 5000
+        ;Twitter アイコンクリックに成功していたらポップアップのtweetをクリック。
+        if r
+        {
+            ;tweet ボタンを探してクリック。
+            r := ClickButton(btnsharetweet)
+            ;連打防止のためクリック成功失敗に関わらず5秒間停止。
+            Sleep 5000
+            if r
+                Break
+        }
+    }
+    ;SNS 一覧が開きぱなしなのでクローズボタンを探してクリックする。
+    ;ポップアップが上に乗っかると見つからないこともある。
+    Loop, 3
+    {
+        ;X ボタンを探してクリック。
+        r := ClickButton(btnclose)
+        ;連打防止のためクリック成功失敗に関わらず5秒間停止。
+        Sleep 5000
+        ;ボタンクリックに成功していたらループを中断。
+        if r
+            Break
     }
     ;再生を始めるとプレイヤーが起動してフォーカスを奪われる。
     ;ページの URL が取得できなくなるので入力フォーカスをページに戻す。
