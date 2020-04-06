@@ -3,6 +3,7 @@
     global workurl
     global hatenaid
     global messengerfriendid
+    global radikoch
 ;入力ダイアログを作成する。
     Gui, add, text, ,音声入力エディタの URL
     Gui, add, edit, veditorurl w200, %editorurl%
@@ -12,6 +13,8 @@
     Gui, add, edit, vhatenaid w200, %hatenaid%
     Gui, add, text, ,メッセンジャーでチャットしたい相手の ID
     Gui, add, edit, vmessengerfriendid w200, %messengerfriendid%
+    Gui, add, text, ,Funcキーで radiko を開く(放送局名をカンマ区切り)
+    Gui, add, edit, vradikoch w200, %radikoch%
     Gui, Add, Button, W100 X25 Default gsubmit, OK
     Gui, Add, Button, W100 X+10, Cancel
 ;ダイアログを表示する。
@@ -29,7 +32,10 @@ submit:
     IniWrite, %workurl%, %A_ScriptDir%\conf.ini, user, workurl
     ;はてなブログの ID。
     IniWrite, %hatenaid%, %A_ScriptDir%\conf.ini, user, hatenaid
+    ;メッセンジャーの特定のお気に入り。
     IniWrite, %messengerfriendid%, %A_ScriptDir%\conf.ini, user, messengerfriendid
+    ;Radiko の放送局リストをカンマ区切り。
+    IniWrite, %radikoch%, %A_ScriptDir%\conf.ini, user, radikoch
     Return
 ;ダイアログのキャンセルボタン押された時の処理。
 ButtonCancel:

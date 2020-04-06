@@ -9,6 +9,8 @@ editorurl := ""
 workurl := ""
 ;Facebook でメッセンジャーする相手の ID。
 messengerfriendid := ""
+;functionキーで 開くラジオのチャンネル名をカンマ区切りで。
+radikoch := ""
 ;設定の読み込み。
 getconfig()
 Menu, tray, click, 1
@@ -84,6 +86,56 @@ Pause::
 ;マウスポインターをウィンドウの両端で一定期間停止させるとスクロールさせる。
 #+PgUp::
     scrollhover()
+    Return
+;ブラウザで Radiko のライブページを開く。
+;放送局一覧はコンフィグで ini ファイルに記録されている。
+F1::
+    RadikoChrome(1, radikoch, workurl)
+    Return
+;ブラウザで Radiko のライブページを開く。
+;放送局一覧はコンフィグで ini ファイルに記録されている。
+F2::
+    RadikoChrome(2, radikoch, workurl)
+    Return
+;ブラウザで Radiko のライブページを開く。
+;放送局一覧はコンフィグで ini ファイルに記録されている。
+F3::
+    RadikoChrome(3, radikoch, workurl)
+    Return
+;ブラウザで Radiko のライブページを開く。
+;放送局一覧はコンフィグで ini ファイルに記録されている。
+F4::
+    RadikoChrome(4, radikoch, workurl)
+    Return
+;ブラウザで Radiko のライブページを開く。
+;放送局一覧はコンフィグで ini ファイルに記録されている。
+F5::
+    RadikoChrome(5, radikoch, workurl)
+    Return
+;ブラウザで Radiko のライブページを開く。
+;放送局一覧はコンフィグで ini ファイルに記録されている。
+F6::
+    RadikoChrome(6, radikoch, workurl)
+    Return
+;ブラウザで Radiko のライブページを開く。
+;放送局一覧はコンフィグで ini ファイルに記録されている。
+F7::
+    RadikoChrome(7, radikoch, workurl)
+    Return
+;ブラウザで Radiko のライブページを開く。
+;放送局一覧はコンフィグで ini ファイルに記録されている。
+F8::
+    RadikoChrome(8, radikoch, workurl)
+    Return
+;ブラウザで Radiko のライブページを開く。
+;放送局一覧はコンフィグで ini ファイルに記録されている。
+F9::
+    RadikoChrome(9, radikoch, workurl)
+    Return
+;ブラウザで Radiko のライブページを開く。
+;放送局一覧はコンフィグで ini ファイルに記録されている。
+F10::
+    RadikoChrome(10, radikoch, workurl)
     Return
 ;Chrome の新規タブで音声検索を開始する。
 ; no asign
