@@ -1,3 +1,5 @@
 hotstring.ahk
 *.ini
 template/*.txt
+FindText.ahk
+lib/FindText.ahk
