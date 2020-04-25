@@ -21,25 +21,9 @@ RadikoChrome(ch, channelstr, workurl, noclick=False){
     Sleep 5000
 
 
+    ;再生ボタンの画像サンプルをテキスト化したデータを取得する。
+    btnplay := FindTextImages("RadikoPlay")
     ;ボタンを探してクリック。
-    ;再生ボタンなどのクリックしたい部分の画像サンプルをテキスト化したデータを取得する。
-    ;操作手順は、再生する、友達に教える、 Twitter アイコン、 Tweet Button、シェア画面を閉じるX。
-    btnplay := FindTextImages("btnplay")
-    btnshare := FindTextImages("btnshare")
-    btntwittericon := FindTextImages("twittericon")
-    btntweet := FindTextImages("tweet")
-    btnclosex := FindTextImages("closex")
-    ;スクリーン全体から再生を探す。
-    if (ClickImage(btnplay))
-    {
-        Sleep 3000
-        ClickImage(btnshare)
-        Sleep 3000
-        ClickImage(btntwittericon)
-        Sleep 3000
-        ClickImage(btntweet)
-        Sleep 3000
-        ClickImage(btnclosex)
-    }
+    ClickImage(btnplay)
     return
 }

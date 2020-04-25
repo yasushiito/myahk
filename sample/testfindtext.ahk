@@ -23,3 +23,4 @@ Text:="|<>*190$60.zzzzzzzzzzzzzzzzzkzzk0000zUkzzk0000zUkzzk0000z1kzzzzUzzz1kzzzz
 
 ;===== Copy The Following Functions To Your Own Code Just once =====
 
+ExitApp, 1
