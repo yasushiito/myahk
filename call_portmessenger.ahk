@@ -7,4 +7,4 @@ messengerfriendid := ""
 ;設定の読み込み。
 getconfig()
     portmessenger(editorurl, messengerfriendid)
-    Return
+    ExitApp, 0

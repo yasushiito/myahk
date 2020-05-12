@@ -19,26 +19,9 @@ portmessenger(editorurl, messengerfriendid){
     importEditorText(editorurl)
     ;Firefox に切り替えて貼り付けの待機。
     WinActivate,ahk_id %fox%
-    Sleep 1000
     ;入力ボックスからフォーカスが外れることが時々あるのでクリックする。
-    ;作業ディレクトリからの相対パスで探すので作業ディレクトリをバックアップして書き換える。
-    wd := A_WorkingDir
-    SetWorkingDir, %A_ScriptDir%
-    fbminput := "images\fbminput.bmp"
-    ;入力ボックスの画像が所定のディレクトリに用意されている場合に限る。
-    if FileExist(fbminput)
-    {
-        CoordMode,Pixel,Relative
-        WinGetPos, , , Width, Height, A
-        ;入力してくださいメッセージを探す。
-        ImageSearch, x, y, 0, 0, Width, Height,*30 %fbminput%
-        if ErrorLevel = 0
-        {
-            MouseMove, x, y, 2
-            MouseClick, Left
-        }
-    }
-    SetWorkingDir, wd
+    txtfld := FindTextImages("FBMessangerTextfield")
+    ClickImage(txtfld, 1000)
     ;クリップボードのテキストをコメント欄に貼り付ける。
     Send,^v
     Sleep 100
