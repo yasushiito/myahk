@@ -31,7 +31,7 @@ blogrefgithub(workurl){
     getbrowserurl()
     ; クリップボードの内容を URL として取り出して埋め込みリンクの文字列を生成してクリップボードに入れる 。
     url := clipboard
-    clipboard = <script src="http://gist-it.appspot.com/%url%"></script>
+    clipboard = <script src="https://gist-it.appspot.com/%url%"></script>
     ; ブラウザのタブを切り替えながら編集ホームを探す 。
     entry := selecttabblogentry(work)
     warnBox(entry = False, 302)
