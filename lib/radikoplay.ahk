@@ -35,13 +35,14 @@ radikoplay(channel, onairtime="", wday=""){
     ;再生ボタンなどのクリックしたい部分の画像サンプルをテキスト化したデータを取得する。
     ;操作手順は、再生する、友達に教える、 Twitter アイコン、 Tweet Button、シェア画面を閉じるX。
     ;ただしタイムフリーの場合は再生ボタンの後に OK ボタンをクリックする。
-    btnplay := FindTextImages("RadikoPlay")
-    btnok := FindTextImages("RadikoOk")
-    btnstop := FindTextImages("RadikoStop")
-    btnshare := FindTextImages("RadikoShare")
-    btntwittericon := FindTextImages("RadikoTwitterIcon")
-    btntweet := FindTextImages("RadikoTweet")
-    btnclosex := FindTextImages("RadikoCloseX")
+    global TextImages
+    btnplay := TextImages["RadikoPlay"]
+    btnok := TextImages["RadikoOk"]
+    btnstop := TextImages["RadikoStop"]
+    btnshare := TextImages["RadikoShare"]
+    btntwittericon := TextImages["RadikoTwitterIcon"]
+    btntweet := TextImages["RadikoTweet"]
+    btnclosex := TextImages["RadikoCloseX"]
     Sleep 1000
     ;クリックミスを考慮して3階までリトライする。
     Loop, 3
