@@ -22,7 +22,7 @@ RadikoChrome(ch, channelstr, workurl, noclick=False){
 
 
     ;再生ボタンの画像サンプルをテキスト化したデータを取得する。
-    btnplay := FindTextImages("RadikoPlay")
+    btnplay := TextImages["RadikoPlay"]
     ;ボタンを探してクリック。
     ClickImage(btnplay)
     return

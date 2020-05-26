@@ -20,7 +20,8 @@ portmessenger(editorurl, messengerfriendid){
     ;Firefox に切り替えて貼り付けの待機。
     WinActivate,ahk_id %fox%
     ;入力ボックスからフォーカスが外れることが時々あるのでクリックする。
-    txtfld := FindTextImages("FBMessangerTextfield")
+    global TextImages
+    txtfld := TextImages["FBMessangerTextfield"]
     ClickImage(txtfld, 1000)
     ;クリップボードのテキストをコメント欄に貼り付ける。
     Send,^v
