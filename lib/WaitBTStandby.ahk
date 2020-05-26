@@ -10,11 +10,11 @@
 ;リトライは30回行われて最後まで接続されなかったら false を返す。
 
 WaitBTStandby(){
-    MsgBox, , ,まもなくラジオの再生が始まります。 ,5
     ;デバイスの接続を確認できるまで3回リトライして待機する。
     ;中断したい時はタスクバーのアイコンダブルクリックでウィンドウを開いてスクリプトを停止する。
     Loop, 3
     {
+        CoordMode, Mouse, Screen
         ;マウスポインタの位置によっては目的の画像がハイライトされていて認識できないことがあるのでマウスポインターをすみっこに移動させておく。
         MouseMove, A_ScreenWidth, 0, 2
         ;キーボードショートカットで Bluetooth デバイス一覧表示する。
@@ -27,7 +27,7 @@ WaitBTStandby(){
             ;クリックできたのでデバイス一覧を閉じる。
             Sleep, 5000
             Send, {Esc}
-            Sleep, 15000
+            Continue
         }
         ;デバイスを見失っているようなので一度切断操作を行う。
         rd := ClickButton("images\bth163off.bmp")
@@ -53,7 +53,7 @@ WaitBTStandby(){
         if rd
         {
             ;デバイス一覧を閉じる。
-            Sleep, 5000
+            Sleep, 2000
             Send, {Esc}
             return True
         }
@@ -61,7 +61,7 @@ WaitBTStandby(){
         GetKeyState, l, LButton
         if l = D
             return True
-        Sleep, 15000
+        Sleep, 10000
         Send, {Esc}
     }
     ;最後まで再接続操作できなかったので失敗を返す。
