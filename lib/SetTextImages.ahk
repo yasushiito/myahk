@@ -9,19 +9,19 @@ SetTextImages(){
     ;Radiko ホームページ。
 
     ;再生するボタン。
-    TextImages["RadikoPlay"] := "|<>*190$60.zzzzzzzzzzzzzzzzzkzzk0000zUkzzk0000zUkzzk0000z1kzzzzUzzz1kzzzzUzzy0003w0007y0003w0007w0003w0007s0003w7Uy7k7kzzw7Uy7sDkzzw0007wTkzzw0007zzkzzw0007w0003w7Uy7w0003w7Uy7w0003U0000w0003U0000zzkzzU0000zzkzzw7zy7zzkzzw7zy7zzkzzw7zy7zzkzzw7z07k0001U"
+    TextImages["RadikoPlay"] := "|<>*189$58.zzzzzzz1zy0000DwA7zs0000zUkTzU0003y31zzzw7zzkQ7zzzkTzz0001s000Ds0007U000z0000S0003w0001sT1sDUT1zzVw7Uy3w7zy0003yTkTzs000Dzz1zzU000zU000y7kS3y0003sT1sDs000A00007U000k0000TzkTz00001zz1zzVzzUzzw7zy7zy3zzkTzsTzsDzz1zzVzs0w0000C7zU3k0000sTy0D00003Vzs1w0000DzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU"
     ;友達に教えるボタン。
-    TextImages["RadikoShare"] :="|<>*141$19.0k00M00A03zzw3001000U00k00TzUC0k50E6EM2AM33M30s10q1XUtb07U"
+    TextImages["RadikoShare"] := "|<>*148$39.0001U81U00A/0800DvM17zUAm0M001gzn003zqAM000llW000A+8E003yF2001UnMEE0E8/260061kEU00z62403y1kMU00kO3600668MDy0lVV000QE6U"
     ;停止するボタン。
-    TextImages["RadikoStop"] := "|<>*189$59.y7w7zzzzzzsDsDzzz1zzk0007zy3zzU000Dzw7zz0000TzsDzw7zzzzzkTzsQ007y7Uzzks00DwD1zz1kzsTsS00S3U00zkw00s7001zVs01kDzzzz3k030E001y7Uzy0U003wD1zw13zy7sS3zw27zwDkw7zy4000TVsDzwC003z3kTzsQ007y7UzzkzsDzwD1zzVzkTzsS3zz3zUzzkw7zs"
+    TextImages["RadikoStop"] := "|<>*188$59.y3y7zzzkTzw0001zzUzzs0003zz1zzU0007zy3zz3zzzzzw7zy6001z1sDzsA003y3kTzkMTy7w7U07Uk00DsD00C1U00TkS00Q3zzzzUw00k4000T1sDzU8000y3kTz0FzzVw7Uzz0Xzz3sD1zzV0007kS3zz3000zUw7zy6001z1sDzwDy3zy3kTzsTw7zw7UzzkzsDzsD1zzVw0Tw0000D3s0zs0000S7s3zk0000wDkDzU0001"
     ;Twitter でシェアするボタン。
-    TextImages["RadikoTwitterIcon"] := "|<>*195$29.zzy1zTzs06TzU0ATz00MDw00k7s03k1k0DU000S0000w0001s0003s0007s000Ts000zU003z0007zU00Tzk01zzk07zy00Tz001zw00Dzz03zzk"
+    TextImages["RadikoTwitterIcon"] := "|<>*195$28.zzy3zzzk2Nzy013zk047z0087w03U7k0D0000w00030000S0001s0007k000TU003y000Ds001zk007zU00zzU07zy00zzU07zU01zy"
     ;Twitter ポップアップのtweetボタン。
-    TextImages["RadikoTweet"] := "|<>*188$67.zzzzzbzzzsTzbzzzVzzzwDtVszzVzzzy7sMwTzVzzzz3yACDzVzzzzVz377zVzzzzkDlX3z1zzzzs1sEXy0zU01wECAls0Tk00yD7Dks6Dzzzz7nzkwT7zzzzXzzkzzXzzzzlzzUzzlzzzzszy0zzszzzzwTy1zzwTzzzyDz3zzyDzzzz7y"
+    TextImages["RadikoTweet"] := "|<>*186$55.zzXzzzy7zzzkzzzz3zzzkzzzzVzzzkzzzzkzzzkzzzzsTzzUzzzzw1zz0zzzzy0Dy0Tzzzz21s0Ds00DVk827w007ky2D3zzzzsTnzVzzzzwDzzkzzzzy7zzsTzzzz3zzwDzzzzVzzy7zzzzkzzz3zzzzsTz"
     ;友達に教えるウィンドウを閉じるボタン。
-    TextImages["RadikoCloseX"] := "|<>*186$25.0zzU0DzU83zUC0zUDUDUDs3UDy00DzU0Dzs0Dzy0Dzz07zzU3zzU0zzU0DzU03zUC0zUDUDUDs3UDy0UDzU0Dzs0Dzy2DzzX"
+    TextImages["RadikoCloseX"] := "|<>*187$26.VzzssDzw61zy1UDz0Q1zUDUDk7w1s3zUA1zw00zzU0Tzw0DzzU7zzs1zzw0Dzy01zz00DzUA1zk7UDs3w1w1zUC0zw1UTzUMDzw67zzXzzzzs"
     ;タイムフリー再生 OK ボタン。
     TextImages["RadikoOk"] := "|<>*181$45.zU7zUTk7k0Dw3y1s00TUTUS0w1w3s7kDkDUS1w3z0w3UDUzw7UQ3s7zUQ30z0zw3UEDs7zUQ03z0zw3U0zs7zUQ03z0zw3U0Ds7zUQ01z0zw3U07s7zUQ30TUzw7UQ1w3z0w3kDkDkDUS0y0w1w3s3s00TUTUDk0Dw3y0zU7zUTs4"
     ;Facebook メッセンジャーのメッセージ入力ボックス。
-    TextImages["FBMessangerTextfield"] := "|<>*187$68.01U0008000000E000200000040000UT000830310Tsk003UU8kEy0M000CM3441UA0000o0FX0M200007068k61Uzzs1s0X81Uk0000nU060M00000MQ010600000A300U0U00006000k0A00006000s01zw002000k0000000U"
+    TextImages["FBMessangerTextfield"] := "|<>*187$50.0010000A000E0000k0047U003121yE00M6EXkA003UW8427zk4AY110000110EU00000U4000000M100000kM0M0000sM03z001k000000008"
 }

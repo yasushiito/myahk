@@ -10,7 +10,8 @@ getLastDateByWday(basedate, lastwday){
     ;直近の曜日とは何日違うか調べる。
     x := (lastwday - wd)
     ;調べたい曜日が後ろの時は先週の曜日となる。
-    If wd <= %lastwday%
+;    If wd <= %lastwday%
+    If wd < %lastwday%
         x -= 7
     ;ベースとなる日付から遡る  xは負の値が入っているので ADD でも遡る。
     EnvAdd, lastdate,%x%,Days
