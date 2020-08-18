@@ -86,12 +86,12 @@ adjust(){
     ;エクスプローラの位置とサイズの調整。
     ;ただし OS が管理しているエクスプローラーのハンドルを掴んでしまうので Window クラスでウィンドウをつかんでいる。
     ;同じクラスを使ったアプリケーションがあると失敗するかも。
-    Process,Exist,explorer.exe
-    explorer := %ErrorLevel%
-    if explorer <> 0
+    if !WinExist("ahk_class CabinetWClass")
     {
-        WinMove,ahk_class CabinetWClass, ,460,10,1068,710
+        Run, explorer.exe
+        Sleep 1500
     }
+    WinMove,ahk_class CabinetWClass, ,460,10,1068,710
     return
 }
 ;このスクリプトを直接起動した場合はここから関数呼び出し。
