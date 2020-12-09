@@ -13,7 +13,8 @@ googlesearch(workurl){
     ;新規タブを開いて検索ページをアクティブにする。
     Send,^t
     Sleep 800
-    Send,{tab}
+    ;アドレスバーからメインウィンドウに戻ってキーボードショートカットから音声検索するには、シフトを押しながら Tab でないと機能しない。
+    Send,+{tab}
     Sleep 100
     ; ctrl+shift+.マイクをオンにする。
     Send,^+{vkbesc34}
