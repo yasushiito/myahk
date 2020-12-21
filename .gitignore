@@ -3,3 +3,4 @@ hotstring.ahk
 template/*.txt
 FindText.ahk
 lib/FindText.ahk
+debug.log
