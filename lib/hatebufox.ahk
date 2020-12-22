@@ -26,7 +26,7 @@ hatebufox(){
     WinActivate,ahk_id %fox%
     Sleep 100
     ;ショートカットキーを送信する
-    Send,^+o
+    Send,^!o
     Sleep 1500
     ;クリップボードのテキストをコメント欄に貼り付ける。
     Send,^v
