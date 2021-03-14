@@ -11,7 +11,7 @@ getconfig()
 detectwork(workurl)
 Sleep, 300
 ;スピーカー出力先を切り替えるアプリAudio switcherのキーボードショートカットからヘッドホンに切り替える。
-Send, +{F7}
+Send, +^{F7}
 Sleep, 300
 ;Radiko の再生。
     radikoplay(a_args[1], a_args[2], a_args[3])
