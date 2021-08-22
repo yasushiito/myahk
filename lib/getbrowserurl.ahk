@@ -4,14 +4,14 @@
     ;
     ; Google Chrome ではURL をクリップボードにコピーで行う。
     ;https://chrome.google.com/webstore/detail/copy-url-to-clipboard/miancenhdlkbmjmhlginhaaepbdnlllc?hl=ja
-    ;設定は ALT + C で選択中のタブのみをプレーンテキストでコピーするようにしておくこと。
+    ;設定は ALT + 3 で選択中のタブのみをプレーンテキストでコピーするようにしておくこと。
     ;Firefox ではCopyTabTitleUrlアドオンを利用する。
     ;https://addons.mozilla.org/ja/firefox/addon/copytabtitleurl/
-    ;ALT + C で URL のみをクリップボードにコピーできるように設定しておく。
+    ;ALT + 3 で URL のみをクリップボードにコピーできるように設定しておく。
     
     ;Chrome の設定ページなどChrome 拡張がコピペしてくれない URL があるので警告メッセージを設定しておく。
     Clipboard := "URL の取得に失敗しました。"
-    Send,!c
+    Send,!3
     ;複数タブの URL をコピーできるタイプのエクステンションは改行コードを含むことがあるので削除しておく。
     Clipboard := cutcrlf(Clipboard)
     return Clipboard
