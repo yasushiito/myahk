@@ -83,6 +83,9 @@ Pause::
     }
     mmic(editorurl)
     Return
++Pause::
+    portAny(editorurl)
+    Return
 ;マウスポインターをウィンドウの両端で一定期間停止させるとスクロールさせる。
 #+PgUp::
     scrollhover()
