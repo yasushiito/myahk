@@ -22,9 +22,6 @@ blogasin(workurl){
     WinActivate,ahk_id %work%
     Sleep 300
     ; カレントタブがamazonを選択してなければタブの中から探してみる。
-    amazon := selecttab(work,"", "://www.amazon.co.jp/")
-    warnBox(amazon = False, 303)
-    
     ; URL バーをフォーカスして URL をすべて選択してコピー 。
     getbrowserurl()
     ; クリップボードの内容を URL として取り出して埋め込みリンクの文字列を生成してクリップボードに入れる 。
@@ -46,6 +43,16 @@ blogasin(workurl){
         ; gp/product/を取り除いて完全な asin コードにする。
         StringReplace, asin, gpasin, gp/product/
     }
+    ;正規表現を使って asin コードらしい部分を取り出す。
+    pos := RegExMatch(url,"o/detail/\w*", gpasin)
+    ;見つかった場合。
+    If pos > 0
+    {
+        
+        ; gp/product/を取り除いて完全な asin コードにする。
+        StringReplace, asin, gpasin, o/detail/
+    }
+    ;    asin:="lllll"
     ;asin コードが見つからなかったら処理を中止。
     If StrLen(asin) = 0
         return
