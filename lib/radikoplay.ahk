@@ -51,7 +51,7 @@ radikoplay(channel, onairtime="", wday=""){
         ;Edge は実行ファイルではないので START コマンドから起動しなければならないのでバッチファイルから起動してもらう。
         Run, microsoft-edge:%url%
         ;ページが開くまで待つ。
-        Sleep 5000
+        Sleep 6000
         ;ウィンドウ左端にはスクリーンキーボードなどのオーバーレイアプリが開いてボタンを隠してしまうのでスクリーン右側に移動させる。
         WinMove, A,,600, 0, 1200, A_ScreenHeight
         ;ここからは再生ボタンを探してクリックする処理。
@@ -63,7 +63,7 @@ radikoplay(channel, onairtime="", wday=""){
             ;タイムフリー再生の時注意喚起ウインドーの OK ボタンをクリック。
             if onairdate
             {
-                r := ClickImage(btnok, 2000)
+                ;r := ClickImage(btnok, 2000)
             }
         }
         ;再生するボタンを探して再生されたことを確認する。
@@ -74,16 +74,19 @@ radikoplay(channel, onairtime="", wday=""){
             Break
         }
         ;クイックに失敗していたらページの読み込みに失敗しているかもしれないのでMicrosoft Edge を閉じる
-        closeedge()
+        if A_Index < 3
+        {
+            closeedge()
+        }
         Sleep 3000
     }
 
     ;ここからは友達に教える機能の Twitter 連携。
     ;操作手順は、友達に教える、 Twitter アイコン、 Tweet Button、シェア画面を閉じるX。
-    ClickImage(btnshare, 3000)
-    ClickImage(btntwittericon, 1500)
-    ClickImage(btntweet, 3000)
-    ClickImage(btnclosex, 1500)
+    ;ClickImage(btnshare, 3000)
+    ;ClickImage(btntwittericon, 1500)
+    ;ClickImage(btntweet, 3000)
+    ;ClickImage(btnclosex, 1500)
 
     ;再生を始めるとプレイヤーが起動してフォーカスを奪われる。
     ;ページの URL が取得    できなくなるので入力フォーカスをページに戻す。
