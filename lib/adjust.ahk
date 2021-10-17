@@ -31,7 +31,7 @@ adjust(){
 
     ; 音声入力ウィンドウ探す。
     detecteditor(editorurl)
-    If editor = 0
+    IfWinNotExist, %editor%
     {
         ;音声入力ウィンドウが見つからなかったら Chrome ごと起動する。
         ;音声入力ウィンドウの URL が config で設定できる。
@@ -48,12 +48,13 @@ adjust(){
 
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
     warnBox(work = 0, 202)
+    WinActivate, ahk_id %work%, ,%editor%
     ;位置とサイズを調整する。
-    WinMove,ahk_id %work%, ,600,20,1200,1050
+    WinMove, A, ,600,20,1200,1050
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
     warnBox(editor = 0, 201)
     ;位置とサイズを調整する。
-    WinMove,ahk_id %editor%, ,-120,-220,900,600
+    WinMove,%editor%, ,-120,-220,900,600
     if fox = 0
     {
         Run , "C:\Program Files\Mozilla Firefox\firefox.exe"
