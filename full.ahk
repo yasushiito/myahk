@@ -17,6 +17,9 @@ Menu, tray, click, 1
 Menu, tray, add, config, config
 ;ウィンドウの端っこにマウスポインタを停止させるとスクロールできるのを頻繁に使うので常に有効にするよう昇格させた。
 scrollhover()
+work := 0
+editor := 0
+fox := 0
 ;ウィンドウの位置とサイズを調整して音声入力と作業ウインドウを用意する。
 adjust()
 Return
@@ -40,10 +43,6 @@ config:
 #^=::
     blogrefgithub(workurl)
     Return
-;Chrome の新規タブで音声検索する。
-#home::
-    googlesearch(workurl)
-    Return
 ;常用アプリケーションのウィンドウサイズと位置の調整。
 #+home::
     adjust()
@@ -58,6 +57,7 @@ config:
     Return
 ;IME を切り替える。
 CapsLock::Send, {vkF3sc029}
+;作業ウィンドウを最前面にもってくる。
 ;長押しした時はアクティブウィンドウのカーソル周辺の単語を Chrome でネット検索する。
 ScrollLock::
     ;長押し判定。
@@ -68,8 +68,24 @@ ScrollLock::
         wordgooglesearch(workurl)
         Return
     }
-
+    IfWinActive, ahk_id %work%
+    {
+        WinActivate,ahk_id %fox%
+        return
+    }
+    WinActivate,ahk_id %work%
     Return
+
+;シフト+スクロールロックでもセレクトワードを検索できる。
++ScrollLock::
+    wordgooglesearch(workurl)
+    Return
+
+;Chrome の新規タブで音声検索する。
+!ScrollLock::
+    googlesearch(workurl)
+    Return
+
 ;音声入力ウィンドウのマイクをオンにする。
 ;長押しした時はアクティブウインドウに音声入力ウィンドウのテキストを転送する。
 Pause::
@@ -160,12 +176,7 @@ F10::
 
 ;ドラッグ位置記憶する変数。
 global dragArea
-AppsKey::
-    ;長押し判定。
-    ;スクリーンキーボードからマウスクリックで入力しているので左ボタンを監視している。
-    KeyWait, LButton, T1
-    if ErrorLevel
-    {
++AppsKey::
         ;ドラッグ位置記憶モードの合図としてメッセージを表示。
         MsgBox, , , 左クリック2回でドラッグ位置記憶, 2
         ;左ボタンを押し下げて離れたらワンクリックとする。
@@ -198,20 +209,11 @@ AppsKey::
         ;ユーザのマウス操作を有効にして終わり。
         BlockInput, off
         Return
-    }
-    ;長押しではなかった場合は通常通りにアプリケーションキー送信する。
-    Send, {AppsKey}
-    Return
 
 
-;シフトキーを押しながらアプリケーションキーの長押し。
+;ctrl + シフトキー
 ;マウスドラッグ操作をもう一度行う。
-+AppsKey::
-    ;長押し判定。
-    ;スクリーンキーボードからマウスクリックで入力しているので左ボタンを監視している。
-    KeyWait, LButton, T1
-    if ErrorLevel
-    {
++!AppsKey::
         ;記憶された座標をカンマで分解して復元する。
         StringSplit, pos, dragArea, `,
         sx := pos1
@@ -235,11 +237,8 @@ AppsKey::
         MouseMove, ex, ey, 20
         Send, {LButton up}
         BlockInput, off
-        Return
-    }
-    ;長押しでなければ普通にシフトキーを押しながらのアプリケーションキー押下を送信する。
-    Send, +{AppsKey}
-    Return
+        return
+
 ;Chrome の新規タブで音声検索を開始する。
 ; no asign
     ;googlesearch
