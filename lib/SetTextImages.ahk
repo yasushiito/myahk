@@ -24,4 +24,8 @@ SetTextImages(){
     TextImages["RadikoOk"] := "|<>*181$45.zU7zUTk7k0Dw3y1s00TUTUS0w1w3s7kDkDUS1w3z0w3UDUzw7UQ3s7zUQ30z0zw3UEDs7zUQ03z0zw3U0zs7zUQ03z0zw3U0Ds7zUQ01z0zw3U07s7zUQ30TUzw7UQ1w3z0w3kDkDkDUS0y0w1w3s3s00TUTUDk0Dw3y0zU7zUTs4"
     ;Facebook メッセンジャーのメッセージ入力ボックス。
     TextImages["FBMessangerTextfield"] := "|<>*187$50.0010000A000E0000k0047U003121yE00M6EXkA003UW8427zk4AY110000110EU00000U4000000M100000kM0M0000sM03z001k000000008"
+    ;再生するボタン。
+    TextImages["GooglepodcastPlay"] := "|<>*189$13.40301k0y0TUDs7w3w1w0s0M0800000M0TVy"
+    ;停止するボタン。
+    TextImages["GooglepodcastStop"] := "|<>*170$19.0007US3kD1s7Uw3kS1sD0w7US3kD1s7Uw3kS1sD0w7US3kD1s7Uw3kS1sD0w0000004"
 }
