@@ -9,7 +9,8 @@ hatebucrm(editorurl, workurl){
     ;音声入力ウィンドウのテキストを加工しながらクリップボードに放り込む。
     importEditorText(editorurl)
     Clipboard := cutcrlf(Clipboard)
-    WinActivate,ahk_id %work%
+    WinActivate, ahk_id %work%, ,%editor%
+;    WinActivate,ahk_id %work%
     Sleep 100
     ;はてブツールバーのブックマークポップアップを開く。
     Send,^b

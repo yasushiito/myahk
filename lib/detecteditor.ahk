@@ -25,7 +25,7 @@ detecteditor(url){
             Sleep, 100
             ;作業ウインドウを特定付ける URL を開いているWindows であれば作業用ウィンドウとする。
             IfInString, Clipboard, %url%, {
-                editor := wid
+                editor := title
                 Break
             }
         }

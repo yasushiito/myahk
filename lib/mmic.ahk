@@ -6,7 +6,7 @@
     ;必要なウィンドウが揃ってない場合は警告をメッセージを表示してアプリケーションを終了する。
     warnBox(editor = 0, 201)
     Sleep 200
-    WinActivate,ahk_id %editor%
+    WinActivate, %editor%
     Sleep 200
     Send,+^s
     return
