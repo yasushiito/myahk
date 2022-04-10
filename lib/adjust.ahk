@@ -59,6 +59,7 @@ adjust(){
     {
         Run , "C:\Program Files\Mozilla Firefox\firefox.exe"
         Sleep, 5000
+        detectfirefox()
     }
     WinMove,ahk_id %fox%, ,660,40,1240,1000
     Process,Exist,eltest.exe
@@ -95,6 +96,22 @@ adjust(){
     WinMove,ahk_class CabinetWClass, ,460,10,1068,710
     return
 }
+;Google Chrome で Ctrl +矢印を入力すると5回ずつ移動する。
+;Ctrl +矢印では単語ごとに移動して欲しいところだけど、 Google Chrome は日本語を分解できないので結局1文字ずつしか動かない。
+;スクリーンキーボードにはキーのリピート機能がないので キャレットの移動がめちゃくちゃ大変。
+;そこでAutoHotkeyを利用して5回ずつ固定でもいいから大きめに動かすようにする。
+;範囲選択しながら移動する時に困らないようにシフトキーとの組み合わせにも対応する。
+
+#IfWinActive ahk_exe Chrome.exe
+^Left::    send, {Left 5}
+^+Left::    send, +{Left 5}
+^Right::    send, {Right 5}
+^+Right::    send, +{Right 5}
+^Up::    send, {Up 5}
+^+Up::    send, +{Up 5}
+^Down::    send, {Down 5}
+^+Down::    send, +{Down 5}
+
 ;このスクリプトを直接起動した場合はここから関数呼び出し。
 ;エクスプローラーなどから直接管理者権限で実行したい時などに使う。
 If A_ScriptName = adjust.ahk
