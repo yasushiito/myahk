@@ -13,9 +13,9 @@
     Clipboard := "URL の取得に失敗しました。"
     Send,!3
     ;クリップボードに転送された文字列がポップアップで表示されてブラウザ操作をブロックしてしまうので ESC キーでキャンセルする
-    Sleep, 300
-    send, {Escape}
+    Sleep, 500
     ;複数タブの URL をコピーできるタイプのエクステンションは改行コードを含むことがあるので削除しておく。
     Clipboard := cutcrlf(Clipboard)
+    send, {Escape}
     return Clipboard
 }

@@ -26,11 +26,10 @@ blogrefgithub(workurl){
     ; カレントタブがGitHubを選択してなければタブの中から探してみる。
     github := selecttab(work,"", "https://github.com/")
     warnBox(github = False, 301)
-    
+
     ; URL バーをフォーカスして URL をすべて選択してコピー 。
-    getbrowserurl()
+    url :=  getbrowserurl()
     ; クリップボードの内容を URL として取り出して埋め込みリンクの文字列を生成してクリップボードに入れる 。
-    url := clipboard
     clipboard = <script src="https://gist-it.appspot.com/%url%"></script>
     ; ブラウザのタブを切り替えながら編集ホームを探す 。
     entry := selecttabblogentry(work)

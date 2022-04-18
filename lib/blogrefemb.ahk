@@ -53,7 +53,9 @@ blogrefemb(workurl){
 getselectedtext(){
     ;あらかじめクリップボードを空にしておいて Ctrl + C で何らかのテキストがクリップボードにコピーされたならソースコードの一部を選択していたと判定する。
     clipboard :=
+    Sleep, 300
     Send, ^c
+;    Sleep, 300
     res := clipboard
     return res
 }

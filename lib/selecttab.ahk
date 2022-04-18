@@ -52,7 +52,11 @@ selecttab(wnd, title, url=""){
             um := True
         ; タブが見つかったら探索を中止して TRUE を返す。
         If tm && um
+        {
+            ;エクステンションが URL をつかみ損ねることがあるので少し待つ。
+            Sleep, 500
             return True
+        }
         ; タブが見つからなかったら tab キーでタブを切り替える。
         Send,^{Tab}
         Sleep 100
