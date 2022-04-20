@@ -89,6 +89,7 @@ searchchrome(target, title){
     ;表示ページが自分のブログであるかを判定するためにクロームに切り替えてページの URL を取得。
     WinActivate, ahk_id %target%
     url := getbrowserurl()
+    Sleep, 300
     ;選択中の単語をクリップボードに送る。
     ;テキスト選択されていないことを考慮してクリップボードはクリアしておく。
     clipboard := ""
