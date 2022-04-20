@@ -22,7 +22,10 @@ blogrefemb(workurl){
     WinActivate,ahk_id %work%
     Sleep 100
     ; URL をクリップボードコピー 。
-    url := getbrowserurl()
+    getbrowserurl()
+    ;URL コピー拡張が Markdown 形式なので URL だけを抽出する。
+    md := clipboard
+    url := geturlfrommd(md)
     ;参照元への誘導のタイトルに使うページタイトルを取得する。
     WinGetActiveTitle, title
     ;ウィンドウタイトルに含まれるブラウザ名称を取り除く。
