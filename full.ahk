@@ -241,7 +241,7 @@ global dragArea
 
 ;12秒後に左クリックしてもらう。
 ;マウスクリックできない時にスクリーンキーボードからの操作だけでクリックイベントを発生させる。
-;7秒は体内時計で数えて。
+;12秒は体内時計で数えて。
 ;期待しないボタンをクリップされないように注意。
 +PgUp::
     SetTimer, delayleftclick, 12000
@@ -251,7 +251,7 @@ delayleftclick:
     send, {LButton}
     return
 
-;127秒後に右クリックする。
+;12秒後に右クリックする。
 ;詳細は左クリックと同じ。
 +PgDn::
     SetTimer, delayrightclick, 12000
