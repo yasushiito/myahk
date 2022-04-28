@@ -239,6 +239,28 @@ global dragArea
         BlockInput, off
         return
 
+;12秒後に左クリックしてもらう。
+;マウスクリックできない時にスクリーンキーボードからの操作だけでクリックイベントを発生させる。
+;7秒は体内時計で数えて。
+;期待しないボタンをクリップされないように注意。
++PgUp::
+    SetTimer, delayleftclick, 12000
+    return
+delayleftclick:
+    SetTimer, delayleftclick, off
+    send, {LButton}
+    return
+
+;127秒後に右クリックする。
+;詳細は左クリックと同じ。
++PgDn::
+    SetTimer, delayrightclick, 12000
+    return
+delayrightclick:
+    SetTimer, delayrightclick, off
+    send, {RButton}
+    return
+
 ;Chrome の新規タブで音声検索を開始する。
 ; no asign
     ;googlesearch
