@@ -57,7 +57,7 @@ config:
     Return
 ;IME を切り替える。
 CapsLock::Send, {vkF3sc029}
-;作業ウィンドウを最前面にもってくる。
+;作業->音声入力-> LINE と順繰りにアクティブにする。
 ;長押しした時はアクティブウィンドウのカーソル周辺の単語を Chrome でネット検索する。
 ScrollLock::
     ;長押し判定。
@@ -68,10 +68,21 @@ ScrollLock::
         wordgooglesearch(workurl)
         Return
     }
+    ;長押しじゃないのでアクティブウィンドウ切り替え。
+    ;作業ウィンドウと Firefox を交互に切り替える。
+    ;ただし LINE が起動している時は Firefox の次に LINE に切り替える。
     IfWinActive, ahk_id %work%
     {
         WinActivate,ahk_id %fox%
         return
+    }
+    IfWinActive, ahk_id %fox%
+    {
+        IfWinExist, ahk_exe line.exe
+        {
+            WinActivate,ahk_exe line.exe
+            return
+        }
     }
     WinActivate,ahk_id %work%
     Return
