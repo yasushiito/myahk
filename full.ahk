@@ -142,31 +142,6 @@ F4::
 F5::
     RadikoChrome(5, radikoch, workurl)
     Return
-;ブラウザで Radiko のライブページを開く。
-;放送局一覧はコンフィグで ini ファイルに記録されている。
-F6::
-    RadikoChrome(6, radikoch, workurl)
-    Return
-;ブラウザで Radiko のライブページを開く。
-;放送局一覧はコンフィグで ini ファイルに記録されている。
-F7::
-    RadikoChrome(7, radikoch, workurl)
-    Return
-;ブラウザで Radiko のライブページを開く。
-;放送局一覧はコンフィグで ini ファイルに記録されている。
-F8::
-    RadikoChrome(8, radikoch, workurl)
-    Return
-;ブラウザで Radiko のライブページを開く。
-;放送局一覧はコンフィグで ini ファイルに記録されている。
-F9::
-    RadikoChrome(9, radikoch, workurl)
-    Return
-;ブラウザで Radiko のライブページを開く。
-;放送局一覧はコンフィグで ini ファイルに記録されている。
-F10::
-    RadikoChrome(10, radikoch, workurl)
-    Return
 
 ;マウスドラッグをアシストする。
 ;
