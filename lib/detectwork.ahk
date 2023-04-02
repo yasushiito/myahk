@@ -14,7 +14,7 @@ detectwork(url){
         ;ウィンドウタイトルの末尾を調べて Chrome だけに対して処理を行う。
         idstr := "ahk_id " . windows%A_Index%
         WinGetTitle,title,%idstr%
-        pos := RegExMatch(title,"- Google Chrome$")
+        pos := RegExMatch(title,"Google Chrome$")
         if pos > 0
         {
             WinGet,wid,ID,%idstr%

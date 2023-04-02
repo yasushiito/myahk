@@ -60,15 +60,6 @@ CapsLock::Send, {vkF3sc029}
 ;作業->音声入力-> LINE と順繰りにアクティブにする。
 ;長押しした時はアクティブウィンドウのカーソル周辺の単語を Chrome でネット検索する。
 ScrollLock::
-    ;長押し判定。
-    ;スクリーンキーボードからマウスクリックで2入力しているので左ボタンを監視している。
-    KeyWait, LButton, T1
-    if ErrorLevel
-    {
-        wordgooglesearch(workurl)
-        Return
-    }
-    ;長押しじゃないのでアクティブウィンドウ切り替え。
     ;作業ウィンドウと Firefox を交互に切り替える。
     ;ただし LINE が起動している時は Firefox の次に LINE に切り替える。
     IfWinActive, ahk_id %work%

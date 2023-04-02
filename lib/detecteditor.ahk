@@ -14,7 +14,7 @@ detecteditor(url){
         idstr := "ahk_id " . windows%A_Index%
         ;ウィンドウタイトルの末尾を調べて Chrome だけに対して処理を行う。
         WinGetTitle,title,%idstr%
-        pos := RegExMatch(title,"- Google Chrome$")
+        pos := RegExMatch(title,"Google Chrome$")
         if pos > 0
         {
             WinGet,wid,ID,%idstr%
